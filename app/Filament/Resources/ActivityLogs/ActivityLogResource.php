@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Filament\Resources\ActivityLogs;
+
+use App\Filament\Resources\ActivityLogs\Tables\ActivityLogsTable;
+use App\Models\ActivityLog;
+use BackedEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
+use UnitEnum;
+
+class ActivityLogResource extends Resource
+{
+    protected static ?string $model = ActivityLog::class;
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
+
+    protected static ?string $recordTitleAttribute = 'description';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Pelayanan';
+
+    protected static ?string $modelLabel = 'Aktivitas';
+
+    protected static ?string $pluralModelLabel = 'Aktivitas';
+
+    public static function table(Table $table): Table
+    {
+        return ActivityLogsTable::configure($table);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => \App\Filament\Resources\ActivityLogs\Pages\ListActivityLogs::route('/'),
+        ];
+    }
+}

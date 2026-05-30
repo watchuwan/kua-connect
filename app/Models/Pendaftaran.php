@@ -15,6 +15,40 @@ class Pendaftaran extends Model implements HasMedia
 {
     use HasSlug, InteractsWithMedia;
 
+    protected static function booted(): void
+    {
+        static::created(function (Pendaftaran $pendaftaran) {
+            $pendaftaran->logActivity('created', 'Pendaftaran baru dengan nomor antrean ' . $pendaftaran->nomor_antrean);
+        });
+
+        static::updated(function (Pendaftaran $pendaftaran) {
+            if ($pendaftaran->isDirty('status')) {
+                $from = $pendaftaran->getOriginal('status')->value ?? $pendaftaran->getOriginal('status');
+                $to = $pendaftaran->status->value;
+                $pendaftaran->logActivity('status_updated', "Status berubah dari {$from} menjadi {$to}");
+            }
+        });
+    }
+
+    public function logActivity(string $event, string $description, ?array $properties = null): void
+    {
+        ActivityLog::create([
+            'subject_type' => self::class,
+            'subject_id' => $this->id,
+            'causer_type' => auth()->check() ? get_class(auth()->user()) : null,
+            'causer_id' => auth()->id(),
+            'event' => $event,
+            'log_name' => 'pendaftaran',
+            'description' => $description,
+            'properties' => $properties,
+        ]);
+    }
+
+    public function activityLogs(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(ActivityLog::class, 'subject');
+    }
+
     protected $table = 'pelayanan.pendaftaran';
     protected $fillable = ['nomor_antrean', 'pelayanan_id', 'data', 'status', 'waktu_dilayani', 'waktu_selesai'];
 
