@@ -20,7 +20,7 @@ class PendaftaranForm
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
-            Section::make('Pendaftaran')->schema([
+            Section::make('Pendaftaran')->columnSpanFull()->schema([
                 Select::make('pelayanan_id')->label('Pelayanan')
                     ->relationship('pelayanan', 'nama_pelayanan')
                     ->searchable()
@@ -31,9 +31,10 @@ class PendaftaranForm
             ]),
 
             Section::make('Data Pemohon')
+                ->columnSpanFull()
                 ->schema(fn (Get $get, ?array $state) => static::buildDynamicFields($get('pelayanan_id'))),
 
-            Section::make('Waktu')->schema([
+            Section::make('Waktu')->columnSpanFull()->schema([
                 DateTimePicker::make('waktu_dilayani')->label('Waktu Dilayani'),
                 DateTimePicker::make('waktu_selesai')->label('Waktu Selesai'),
             ]),

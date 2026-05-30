@@ -11,16 +11,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::firstOrCreate(
-            ['email' => 'admin@example.com'],
+            ["email" => "admin@example.com"],
             [
-                'name' => 'Admin',
-                'password' => Hash::make('password'),
-                'email_verified_at' => now(),
-                'is_active' => true,
+                "name" => "Admin",
+                "password" => Hash::make("password"),
+                "email_verified_at" => now(),
+                "is_active" => true,
             ],
         );
 
         $this->call([
+            AppSettingSeeder::class,
             InstansiSeeder::class,
             PelayananSeeder::class,
             FormFieldSeeder::class,

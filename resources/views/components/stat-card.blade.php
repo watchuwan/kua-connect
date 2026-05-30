@@ -12,7 +12,7 @@
         'green' => 'bg-emerald-50 text-emerald-600',
         'blue' => 'bg-blue-50 text-blue-600',
         'purple' => 'bg-purple-50 text-purple-600',
-        'orange' => 'bg-amber-50 text-amber-600',
+        'orange' => 'bg-brand-50 text-brand-600',
         'red' => 'bg-rose-50 text-rose-600',
     ];
 @endphp

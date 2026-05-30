@@ -10,6 +10,7 @@
         try { $ig = \App\Models\AppSetting::get('instagram'); } catch(\Throwable $e) { $ig = null; }
         try { $tw = \App\Models\AppSetting::get('twitter'); } catch(\Throwable $e) { $tw = null; }
         try { $yt = \App\Models\AppSetting::get('youtube'); } catch(\Throwable $e) { $yt = null; }
+        try { $tiktok = \App\Models\AppSetting::get('tiktok'); } catch(\Throwable $e) { $tiktok = null; }
         try { $visitorToday = \App\Models\Visitor::today(); } catch(\Throwable $e) { $visitorToday = 0; }
         try { $visitorMonth = \App\Models\Visitor::thisMonth(); } catch(\Throwable $e) { $visitorMonth = 0; }
         try { $visitorTotal = \App\Models\Visitor::total(); } catch(\Throwable $e) { $visitorTotal = 0; }
@@ -21,7 +22,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-10 border-b border-neutral-800">
             <div class="flex items-center gap-3">
                 @if($logo)
-                    <img src="{{ $logo }}" alt="Logo" class="h-10 w-10 rounded-xl object-contain">
+                    <img src="{{ $logo }}" alt="Logo" class="h-10 w-10 rounded-xl object-contain" loading="lazy">
                 @else
                     <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white font-display font-bold">TM</span>
                 @endif
@@ -50,6 +51,11 @@
                 @if($yt)
                 <a href="{{ $yt }}" target="_blank" class="flex h-9 w-9 items-center justify-center rounded-xl bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="YouTube">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></svg>
+                </a>
+                @endif
+                @if($tiktok)
+                <a href="{{ $tiktok }}" target="_blank" class="flex h-9 w-9 items-center justify-center rounded-xl bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="TikTok">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
                 </a>
                 @endif
             </div>

@@ -16,7 +16,7 @@ class InstansiForm
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
-            Section::make('Data OPD')->schema([
+            Section::make('Data OPD')->columnSpanFull()->schema([
                 SpatieMediaLibraryFileUpload::make('logo')
                     ->label('Logo')
                     ->collection('logo')

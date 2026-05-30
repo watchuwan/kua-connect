@@ -5,7 +5,7 @@
 
 @php
     $colors = [
-        'primary' => 'bg-amber-50 text-amber-700 ring-amber-600/20',
+        'primary' => 'bg-brand-50 text-brand-700 ring-brand-600/20',
         'green' => 'bg-emerald-50 text-emerald-700 ring-emerald-600/20',
         'red' => 'bg-rose-50 text-rose-700 ring-rose-600/20',
         'blue' => 'bg-blue-50 text-blue-700 ring-blue-600/20',

@@ -6,6 +6,9 @@
 
         <title>{{ $title ?? config('app.name') }}</title>
 
+        <link rel="preconnect" href="https://images.unsplash.com">
+        <link rel="dns-prefetch" href="https://images.unsplash.com">
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         @livewireStyles

@@ -14,7 +14,7 @@ class PelayananInfolist
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
-            Section::make('Data Pelayanan')->icon(Heroicon::OutlinedClipboardDocumentList)->schema([
+            Section::make('Data Pelayanan')->columnSpanFull()->icon(Heroicon::OutlinedClipboardDocumentList)->schema([
                 SpatieMediaLibraryImageEntry::make('icon')
                     ->label('Icon')
                     ->collection('icon')

@@ -1,10 +1,27 @@
 @import "../../../../vendor/filament/filament/resources/css/theme.css";
 
+@theme {
+    --color-brand-50: #eef1f7;
+    --color-brand-100: #dde3ef;
+    --color-brand-200: #c5cddf;
+    --color-brand-300: #7a8bbf;
+    --color-brand-400: #3a5199;
+    --color-brand-500: #0C226F;
+    --color-brand-600: #0a1d5e;
+    --color-brand-700: #081852;
+    --color-brand-800: #061445;
+    --color-brand-900: #030d2b;
+
+    --color-primary: #0C226F;
+    --color-primary-dark: #081852;
+    --color-primary-light: #eef1f7;
+}
+
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
 
 .fi-sidebar {
-    @apply border-r border-teal-700 dark:border-teal-900 bg-teal-600 dark:bg-teal-900 w-75;
+    @apply border-r border-brand-700 dark:border-brand-900 bg-brand-600 dark:bg-brand-900 w-75;
 }
 
 .fi-sidebar-nav-groups {
@@ -32,20 +49,20 @@
 
 .fi-sidebar-item-active a,
 .fi-sidebar-item.fi-active a {
-    color: #0f766e !important; /* teal-700 */
+    color: #081852 !important;
     background-color: #fff !important;
     @apply rounded-md font-semibold;
 }
 
 .fi-sidebar-item-active a:hover,
 .fi-sidebar-item.fi-active a:hover {
-    color: #0f766e !important;
+    color: #081852 !important;
     background-color: #fff !important;
 }
 
 .fi-sidebar-item-active .fi-sidebar-item-label,
 .fi-sidebar-item.fi-active .fi-sidebar-item-label {
-    color: #0f766e !important;
+    color: #081852 !important;
 }
 
 .fi-sidebar-item-icon {
@@ -58,7 +75,7 @@
 
 /* --- Topbar --- */
 .fi-topbar {
-    @apply border-b border-teal-600 dark:border-teal-900 bg-white dark:bg-gray-950;
+    @apply border-b border-brand-600 dark:border-brand-900 bg-white dark:bg-gray-950;
 }
 
 /* --- Main Content --- */
@@ -76,24 +93,24 @@
 }
 
 .fi-page-header-heading {
-    @apply text-xl font-semibold tracking-tight text-teal-900 dark:text-teal-50;
+    @apply text-xl font-semibold tracking-tight text-brand-900 dark:text-brand-50;
 }
 
 /* --- Cards / Sections --- */
 .fi-section {
-    @apply rounded-lg border border-teal-200 dark:border-teal-800 bg-white dark:bg-gray-900 shadow-none;
+    @apply rounded-lg border border-brand-200 dark:border-brand-800 bg-white dark:bg-gray-900 shadow-none;
 }
 
 .fi-section-header {
-    @apply border-b border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-900/30 px-5 py-4;
+    @apply border-b border-brand-200 dark:border-brand-800 bg-brand-50 dark:bg-brand-900/30 px-5 py-4;
 }
 
 .fi-section-header-heading {
-    @apply text-sm font-semibold text-teal-900 dark:text-teal-100;
+    @apply text-sm font-semibold text-brand-900 dark:text-brand-100;
 }
 
 .fi-section-header-description {
-    @apply text-xs text-teal-600 dark:text-teal-400;
+    @apply text-xs text-brand-600 dark:text-brand-400;
 }
 
 .fi-section-content {
@@ -102,36 +119,48 @@
 
 /* --- Stats Widgets --- */
 .fi-wi-stats-overview-stat {
-    @apply rounded-lg border border-teal-200 dark:border-teal-800 bg-white dark:bg-gray-900 p-5 shadow-none;
+    @apply rounded-xl border border-brand-200 dark:border-brand-700 bg-white dark:bg-gray-800 p-5 shadow-sm;
+}
+
+.fi-wi-stats-overview-stat-label-ctn {
+    @apply gap-2;
 }
 
 .fi-wi-stats-overview-stat-label {
-    @apply text-xs font-medium text-teal-600 dark:text-teal-400;
+    @apply text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-white;
 }
 
 .fi-wi-stats-overview-stat-value {
-    @apply text-2xl font-bold tracking-tight text-teal-900 dark:text-teal-50;
+    @apply text-2xl font-bold tracking-tight text-brand-900 dark:text-white;
 }
 
 .fi-wi-stats-overview-stat-description {
-    @apply text-xs text-teal-500 dark:text-teal-400;
+    @apply text-xs font-medium text-brand-500 dark:text-brand-300;
+}
+
+.fi-wi-stats-overview-stat-icon {
+    @apply h-5 w-5;
+}
+
+.fi-wi-stats-overview-stat-chart {
+    @apply opacity-30 dark:opacity-20;
 }
 
 /* --- Tables --- */
 .fi-ta {
-    @apply rounded-lg border border-teal-200 dark:border-teal-800 bg-white dark:bg-gray-900 shadow-none overflow-hidden;
+    @apply rounded-lg border border-brand-200 dark:border-brand-800 bg-white dark:bg-gray-900 shadow-none overflow-hidden;
 }
 
 .fi-ta-header {
-    @apply border-b border-teal-200 dark:border-teal-800 bg-teal-600 dark:bg-teal-900 px-5 py-4;
+    @apply border-b border-brand-200 dark:border-brand-800 bg-brand-600 dark:bg-brand-900 px-5 py-4;
 }
 
 .fi-ta-header-heading {
-    @apply text-base font-semibold tracking-tight text-white dark:text-teal-50;
+    @apply text-base font-semibold tracking-tight text-white dark:text-brand-50;
 }
 
 .fi-ta-header-description {
-    @apply text-sm text-teal-100 dark:text-teal-300 mt-0.5;
+    @apply text-sm text-brand-100 dark:text-brand-300 mt-0.5;
 }
 
 .fi-ta-filters-heading {
@@ -139,7 +168,7 @@
 }
 
 .fi-ta-row {
-    @apply border-b border-teal-100 dark:border-teal-800 transition-colors hover:bg-teal-50 dark:hover:bg-teal-900/20;
+    @apply border-b border-brand-100 dark:border-brand-800 transition-colors hover:bg-brand-50 dark:hover:bg-brand-900/20;
 }
 
 .fi-ta-row:last-child {
@@ -151,7 +180,7 @@
 }
 
 .fi-ta-header-cell {
-    @apply text-xs font-medium uppercase tracking-wider text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-900/30;
+    @apply text-xs font-medium uppercase tracking-wider text-brand-700 dark:text-brand-300 bg-brand-50 dark:bg-brand-900/30;
 }
 
 /* --- Buttons --- */
@@ -169,33 +198,33 @@
 
 /* --- Forms / Inputs --- */
 .fi-input-wrp {
-    @apply rounded-md border border-teal-200 dark:border-teal-700 shadow-none transition-colors focus-within:border-teal-600 dark:focus-within:border-teal-400 focus-within:ring-0;
+    @apply rounded-md border border-brand-200 dark:border-brand-700 shadow-none transition-colors focus-within:border-brand-600 dark:focus-within:border-brand-400 focus-within:ring-0;
 }
 
 .fi-fo-field-wrp-label {
-    @apply text-sm font-medium text-teal-800 dark:text-teal-200;
+    @apply text-sm font-medium text-brand-800 dark:text-brand-200;
 }
 
 /* --- Modals --- */
 .fi-modal-window {
-    @apply rounded-lg border border-teal-200 dark:border-teal-800 shadow-lg;
+    @apply rounded-lg border border-brand-200 dark:border-brand-800 shadow-lg;
 }
 
 .fi-modal-header {
-    @apply border-b border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-900/30 px-5 py-4;
+    @apply border-b border-brand-200 dark:border-brand-800 bg-brand-50 dark:bg-brand-900/30 px-5 py-4;
 }
 
 .fi-modal-footer {
-    @apply border-t border-teal-200 dark:border-teal-800 px-5 py-4;
+    @apply border-t border-brand-200 dark:border-brand-800 px-5 py-4;
 }
 
 /* --- Tabs --- */
 .fi-tabs-tab {
-    @apply rounded-md px-3 py-1.5 text-sm font-medium text-teal-600 dark:text-teal-400 transition-colors;
+    @apply rounded-md px-3 py-1.5 text-sm font-medium text-brand-600 dark:text-brand-400 transition-colors;
 }
 
 .fi-tabs-tab-active {
-    @apply bg-teal-100 dark:bg-teal-800 text-teal-900 dark:text-teal-50;
+    @apply bg-brand-100 dark:bg-brand-800 text-brand-900 dark:text-brand-50;
 }
 
 /* --- Badges --- */
@@ -205,7 +234,7 @@
 
 /* --- Notifications --- */
 .fi-no-notification {
-    @apply rounded-lg border border-teal-200 dark:border-teal-800 shadow-sm;
+    @apply rounded-lg border border-brand-200 dark:border-brand-800 shadow-sm;
 }
 
 /* --- Pagination --- */
@@ -219,7 +248,7 @@
 
 /* --- Chart Widgets --- */
 .fi-wi-chart {
-    @apply rounded-lg border border-teal-200 dark:border-teal-800 bg-white dark:bg-gray-900 p-5 shadow-none;
+    @apply rounded-lg border border-brand-200 dark:border-brand-800 bg-white dark:bg-gray-900 p-5 shadow-none;
 }
 
 /* --- Global refinements --- */

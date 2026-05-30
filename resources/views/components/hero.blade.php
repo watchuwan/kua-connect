@@ -12,8 +12,8 @@ try { $deskripsi = \App\Models\AppSetting::get('deskripsi_portal', 'Portal Pelay
             <h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl leading-[1.1]">
                 Selamat Datang di
                 <span class="relative whitespace-nowrap">
-                    <span class="relative z-10 text-amber-600">{{ $portalName }}</span>
-                    <span class="absolute -bottom-1 left-0 right-0 h-3 bg-amber-200/40 -z-0 rounded-full" aria-hidden="true"></span>
+                    <span class="relative z-10 text-brand-600">{{ $portalName }}</span>
+                    <span class="absolute -bottom-1 left-0 right-0 h-3 bg-brand-200/40 -z-0 rounded-full" aria-hidden="true"></span>
                 </span>
             </h1>
             <p class="mt-4 text-base leading-relaxed text-neutral-500 sm:text-lg max-w-xl mx-auto">
@@ -30,6 +30,6 @@ try { $deskripsi = \App\Models\AppSetting::get('deskripsi_portal', 'Portal Pelay
             </div>
         </div>
     </div>
-    <div class="absolute right-0 top-0 -z-10 h-[600px] w-[600px] translate-x-1/3 -translate-y-1/4 rounded-full bg-amber-50/80 blur-3xl" aria-hidden="true"></div>
+    <div class="absolute right-0 top-0 -z-10 h-[600px] w-[600px] translate-x-1/3 -translate-y-1/4 rounded-full bg-brand-50/80 blur-3xl" aria-hidden="true"></div>
     <div class="absolute left-0 bottom-0 -z-10 h-[400px] w-[400px] -translate-x-1/4 translate-y-1/4 rounded-full bg-neutral-50 blur-3xl" aria-hidden="true"></div>
 </section>
