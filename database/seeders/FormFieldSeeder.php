@@ -14,14 +14,19 @@ class FormFieldSeeder extends Seeder
             'label' => 'Nomor Induk Kependudukan (NIK)',
             'type' => 'number',
             'required' => true,
+            'options' => null,
+            'placeholder' => 'Masukkan 16 digit NIK',
+            'help_text' => 'Pastikan NIK sesuai dengan KTP',
             'order' => 1,
-            'validation_rules' => ['digits:16'],
         ],
         [
             'name' => 'nama_lengkap',
             'label' => 'Nama Lengkap',
             'type' => 'text',
             'required' => true,
+            'options' => null,
+            'placeholder' => 'Masukkan nama lengkap',
+            'help_text' => null,
             'order' => 2,
         ],
         [
@@ -29,6 +34,9 @@ class FormFieldSeeder extends Seeder
             'label' => 'Tempat Lahir',
             'type' => 'text',
             'required' => true,
+            'options' => null,
+            'placeholder' => 'Kota/Kabupaten tempat lahir',
+            'help_text' => null,
             'order' => 3,
         ],
         [
@@ -36,6 +44,9 @@ class FormFieldSeeder extends Seeder
             'label' => 'Tanggal Lahir',
             'type' => 'date',
             'required' => true,
+            'options' => null,
+            'placeholder' => null,
+            'help_text' => null,
             'order' => 4,
         ],
         [
@@ -44,6 +55,8 @@ class FormFieldSeeder extends Seeder
             'type' => 'select',
             'required' => true,
             'options' => ['Laki-laki', 'Perempuan'],
+            'placeholder' => 'Pilih jenis kelamin',
+            'help_text' => null,
             'order' => 5,
         ],
         [
@@ -51,6 +64,9 @@ class FormFieldSeeder extends Seeder
             'label' => 'Alamat',
             'type' => 'textarea',
             'required' => true,
+            'options' => null,
+            'placeholder' => 'Masukkan alamat lengkap',
+            'help_text' => null,
             'order' => 6,
         ],
         [
@@ -58,6 +74,9 @@ class FormFieldSeeder extends Seeder
             'label' => 'Nomor Handphone',
             'type' => 'tel',
             'required' => false,
+            'options' => null,
+            'placeholder' => '08xxxxxxxxxx',
+            'help_text' => null,
             'order' => 7,
         ],
         [
@@ -65,6 +84,9 @@ class FormFieldSeeder extends Seeder
             'label' => 'Email',
             'type' => 'email',
             'required' => false,
+            'options' => null,
+            'placeholder' => 'contoh@email.com',
+            'help_text' => null,
             'order' => 8,
         ],
         [
@@ -80,6 +102,8 @@ class FormFieldSeeder extends Seeder
                     'min_height' => 200,
                 ],
             ],
+            'placeholder' => null,
+            'help_text' => 'Format JPG/PNG, maks 2MB, minimal 200x200px',
             'order' => 9,
         ],
         [
@@ -87,6 +111,9 @@ class FormFieldSeeder extends Seeder
             'label' => 'Keterangan Tambahan',
             'type' => 'textarea',
             'required' => false,
+            'options' => null,
+            'placeholder' => 'Informasi tambahan (opsional)',
+            'help_text' => null,
             'order' => 10,
         ],
     ];
@@ -99,7 +126,7 @@ class FormFieldSeeder extends Seeder
             foreach ($this->baseFields as $field) {
                 FormField::firstOrCreate(
                     ['pelayanan_id' => $pelayanan->id, 'name' => $field['name']],
-                    $field,
+                    array_merge($field, ['active' => true]),
                 );
             }
         }
