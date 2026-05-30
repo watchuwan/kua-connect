@@ -1,0 +1,75 @@
+@import "tailwindcss";
+@plugin '@tailwindcss/typography';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+    --color-primary: #d97706;
+    --color-primary-dark: #b45309;
+    --color-primary-light: #fbbf24;
+
+    --color-green: #059669;
+    --color-green-dark: #047857;
+
+    --color-red: #e11d48;
+    --color-red-dark: #be123c;
+
+    --color-orange: #ea580c;
+    --color-blue: #2563eb;
+    --color-purple: #7c3aed;
+
+    --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+    --ease-out-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s var(--ease-out-smooth), transform 0.6s var(--ease-out-smooth);
+}
+.fade-up.shown {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes pulse-count {
+    0%,
+    100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+
+.count-active {
+    animation: pulse-count 0.35s var(--ease-out-expo);
+}
+
+@keyframes enter-up {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.page-enter {
+    animation: enter-up 0.5s var(--ease-out-smooth) both;
+}
+.page-enter-delay-1 { animation-delay: 0.08s; }
+.page-enter-delay-2 { animation-delay: 0.16s; }
+.page-enter-delay-3 { animation-delay: 0.24s; }
+
+.map-container .leaflet-tile-pane { z-index: 1; }
+.map-container .leaflet-marker-pane { z-index: 2; }
+.map-container .leaflet-popup-pane { z-index: 3; }
