@@ -26,6 +26,7 @@ use Filament\Resources\Pages\CreateRecord;
 use Filament\Tables\Enums\PaginationMode;
 use Filament\Tables\Table;
 use Filament\Actions\CreateAction;
+use Filament\Navigation\NavigationGroup;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -79,6 +80,12 @@ class AdminPanelProvider extends PanelProvider
             ->resourceEditPageRedirect("index")
             ->resourceCreatePageRedirect("index")
             ->maxContentWidth("full")
+            ->navigationGroups([
+                NavigationGroup::make("Pelayanan"),
+                NavigationGroup::make("Master"),
+                NavigationGroup::make("Pengaturan"),
+                NavigationGroup::make("Administrator"),
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
