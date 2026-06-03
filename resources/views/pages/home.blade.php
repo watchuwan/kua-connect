@@ -184,11 +184,17 @@ new class extends Component
     {{-- Layanan Populer --}}
     <section class="relative overflow-hidden bg-gradient-to-b from-white to-brand-50/30">
         <div class="fade-up mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-            <div class="mb-12">
-                <span class="text-xs font-semibold uppercase tracking-[0.15em] text-accent-600">Layanan</span>
-                <h2 class="mt-2 font-display text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">Layanan Populer</h2>
-                <div class="mt-3 h-0.5 w-12 bg-accent-300 rounded-full"></div>
-                <p class="mt-4 text-sm text-neutral-500 max-w-md">Layanan dengan antrean terbanyak di Kabupaten Tangerang</p>
+            <div class="mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-[0.15em] text-accent-600">Layanan</span>
+                    <h2 class="mt-2 font-display text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">Layanan Populer</h2>
+                    <div class="mt-3 h-0.5 w-12 bg-accent-300 rounded-full"></div>
+                    <p class="mt-4 text-sm text-neutral-500 max-w-md">Layanan dengan antrean terbanyak di Kabupaten Tangerang</p>
+                </div>
+                <a href="/layanan" wire:navigate class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-accent-600 hover:text-accent-700 transition-colors shrink-0">
+                    Lihat Semua Layanan
+                    <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
             </div>
 
             @if(count($this->layananPopuler) > 0)
@@ -222,6 +228,13 @@ new class extends Component
                     <p class="mt-3 text-sm text-neutral-500">Belum ada layanan tersedia.</p>
                 </x-card>
             @endif
+
+            <div class="mt-8 text-center sm:hidden">
+                <a href="/layanan" wire:navigate class="inline-flex items-center gap-1.5 text-sm font-medium text-accent-600 hover:text-accent-700 transition-colors">
+                    Lihat Semua Layanan
+                    <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
         </div>
         <div class="absolute left-0 top-1/4 -z-10 h-[300px] w-[300px] -translate-x-1/3 rounded-full bg-accent-50/40 blur-3xl" aria-hidden="true"></div>
     </section>
@@ -274,11 +287,17 @@ new class extends Component
         @php $items = $this->daftarInstansi; @endphp
         <section class="relative overflow-hidden bg-white">
             <div class="fade-up mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-                <div class="mb-12">
-                    <span class="text-xs font-semibold uppercase tracking-[0.15em] text-brand-600">OPD</span>
-                    <h2 class="mt-2 font-display text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">OPD Terdaftar</h2>
-                    <div class="mt-3 h-0.5 w-12 bg-neutral-200 rounded-full"></div>
-                    <p class="mt-4 text-sm text-neutral-500 max-w-md">{{ count($this->daftarInstansi) }} OPD aktif melayani masyarakat</p>
+                <div class="mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-[0.15em] text-brand-600">OPD</span>
+                        <h2 class="mt-2 font-display text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">OPD Terdaftar</h2>
+                        <div class="mt-3 h-0.5 w-12 bg-neutral-200 rounded-full"></div>
+                        <p class="mt-4 text-sm text-neutral-500 max-w-md">{{ count($this->daftarInstansi) }} OPD aktif melayani masyarakat</p>
+                    </div>
+                    <a href="/opd" wire:navigate class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:text-brand-700 transition-colors shrink-0">
+                        Lihat Semua OPD
+                        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
                 </div>
 
                 <div
@@ -358,6 +377,13 @@ new class extends Component
                             ></button>
                         </template>
                     </div>
+                </div>
+
+                <div class="mt-8 text-center sm:hidden">
+                    <a href="/opd" wire:navigate class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:text-brand-700 transition-colors">
+                        Lihat Semua OPD
+                        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
                 </div>
             </div>
         </section>

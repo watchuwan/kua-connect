@@ -14,4 +14,6 @@ Route::redirect('/layanan/{pelayanan}', '/layanan/{pelayanan}/daftar')->name('pe
 Route::livewire('/opd', 'pages::instansi.index')->name('instansi.index');
 Route::livewire('/opd/{instansi}', 'pages::instansi.show')->name('instansi.show');
 
+Route::livewire('/test-counter', 'pages::test-counter')->name('test.counter');
+
 

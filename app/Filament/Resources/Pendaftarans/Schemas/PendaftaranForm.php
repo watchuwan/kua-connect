@@ -80,6 +80,7 @@ class PendaftaranForm
                 'date' => DateTimePicker::make($name)->label($field->label),
                 'file', 'image' => SpatieMediaLibraryFileUpload::make($name)
                     ->label($field->label)
+                    ->disk('public')
                     ->collection('pendaftaran_files')
                     ->multiple()
                     ->maxSize(($field->getFileUploadConfig()['max_size'] ?? 2048) * 1024)

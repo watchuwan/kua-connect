@@ -16,6 +16,8 @@ function initScrollAnimations() {
 
 initScrollAnimations();
 document.addEventListener('livewire:navigated', initScrollAnimations);
+document.addEventListener('livewire:load', initScrollAnimations);
+document.addEventListener('livewire:update', initScrollAnimations);
 
 document.addEventListener('alpine:init', () => {
     Alpine.data('heroBg', () => ({

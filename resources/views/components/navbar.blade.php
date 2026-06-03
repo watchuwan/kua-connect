@@ -18,9 +18,9 @@ $navItems = [
                 try { $portalName = \App\Models\AppSetting::get('nama_portal', 'Tangkab Melayani'); } catch(\Throwable $e) { $portalName = 'Tangkab Melayani'; }
             @endphp
             @if($logo)
-                <img src="{{ $logo }}" alt="Logo" class="h-9 w-9 rounded-lg object-contain" loading="lazy">
-            @else
-                <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-white font-display font-bold text-sm">TM</span>
+                <img src="{{ $logo }}" alt="Logo" class="h-11 w-11 rounded-lg object-contain" loading="lazy">
+                @else
+                <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-primary text-white font-display font-bold text-sm">TM</span>
             @endif
             <span class="font-display text-lg font-bold text-neutral-900">{{ $portalName }}</span>
         </a>

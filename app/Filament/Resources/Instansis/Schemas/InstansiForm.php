@@ -16,23 +16,38 @@ class InstansiForm
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
-            Section::make('Data OPD')->columnSpanFull()->schema([
-                SpatieMediaLibraryFileUpload::make('logo')
-                    ->label('Logo')
-                    ->collection('logo')
-                    ->conversion('thumb')
-                    ->image()
-                    ->imageResizeMode('cover')
-                    ->imageCropAspectRatio('1:1')
-                    ->circleCropper()
-                    ->maxSize(2048),
-                TextInput::make('kode_instansi')->label('Kode OPD')->required(),
-                TextInput::make('nama_instansi')->label('Nama OPD')->required(),
-                Textarea::make('deskripsi_layanan')->label('Deskripsi Layanan'),
-                TextInput::make('kecamatan')->label('Kecamatan'),
-                Select::make('tipe')->label('Tipe')->options(TipeInstansi::class)->required(),
-                Toggle::make('aktif')->label('Aktif')->default(true)->inline(false),
-            ]),
+            Section::make("Data OPD")
+                ->columnSpanFull()
+                ->schema([
+                    SpatieMediaLibraryFileUpload::make("logo")
+                        ->label("Logo")
+                        ->disk("public")
+                        ->collection("logo")
+                        ->conversion("thumb")
+                        ->image()
+                        ->imageResizeMode("cover")
+                        ->imageCropAspectRatio("1:1")
+                        ->circleCropper()
+                        ->maxSize(2048),
+                    TextInput::make("kode_instansi")
+                        ->label("Kode OPD")
+                        ->required(),
+                    TextInput::make("nama_instansi")
+                        ->label("Nama OPD")
+                        ->required(),
+                    Textarea::make("deskripsi_layanan")->label(
+                        "Deskripsi Layanan",
+                    ),
+                    TextInput::make("kecamatan")->label("Kecamatan"),
+                    Select::make("tipe")
+                        ->label("Tipe")
+                        ->options(TipeInstansi::class)
+                        ->required(),
+                    Toggle::make("aktif")
+                        ->label("Aktif")
+                        ->default(true)
+                        ->inline(false),
+                ]),
         ]);
     }
 }

@@ -32,6 +32,7 @@ class AppSettingForm
 
                 SpatieMediaLibraryFileUpload::make('media')
                     ->label('File')
+                    ->disk('public')
                     ->collection(fn ($get) => $get('key') ?: 'general')
                     ->image()
                     ->maxSize(4096)

@@ -11,6 +11,8 @@ use App\Filament\Resources\Instansis\Schemas\InstansiInfolist;
 use App\Filament\Resources\Instansis\Tables\InstansisTable;
 use App\Models\Instansi;
 use BackedEnum;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -23,13 +25,13 @@ class InstansiResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice;
 
-    protected static ?string $recordTitleAttribute = 'nama_instansi';
+    protected static ?string $recordTitleAttribute = "nama_instansi";
 
-    protected static string|UnitEnum|null $navigationGroup = 'Master';
+    protected static string|UnitEnum|null $navigationGroup = "Master";
 
-    protected static ?string $modelLabel = 'OPD';
+    protected static ?string $modelLabel = "OPD";
 
-    protected static ?string $pluralModelLabel = 'OPD';
+    protected static ?string $pluralModelLabel = "OPD";
 
     public static function form(Schema $schema): Schema
     {
@@ -49,10 +51,23 @@ class InstansiResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListInstansis::route('/'),
-            'create' => CreateInstansi::route('/create'),
-            'view' => ViewInstansi::route('/{record}'),
-            'edit' => EditInstansi::route('/{record}/edit'),
+            "index" => ListInstansis::route("/"),
+            "create" => CreateInstansi::route("/create"),
+            "view" => ViewInstansi::route("/{record}"),
+            "edit" => EditInstansi::route("/{record}/edit"),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery()->where("aktif", true);
+
+        $user = Auth::user();
+
+        if ($user && !$user->hasRole("super_admin") && $user->instansi_id) {
+            $query->where("id", $user->instansi_id);
+        }
+
+        return $query;
     }
 }

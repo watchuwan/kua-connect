@@ -13,21 +13,32 @@ class InstansiInfolist
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
-            Section::make('Detail OPD')->columnSpanFull()->schema([
-                SpatieMediaLibraryImageEntry::make('logo')
-                    ->label('Logo')
-                    ->collection('logo')
-                    ->conversion('thumb')
-                    ->circular()
-                    ->defaultImageUrl(fn ($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->nama_instansi) . '&background=d97706&color=fff'),
-                TextEntry::make('kode_instansi')->label('Kode OPD'),
-                TextEntry::make('nama_instansi')->label('Nama OPD'),
-                TextEntry::make('deskripsi_layanan')->label('Deskripsi Layanan')->placeholder('-'),
-                TextEntry::make('kecamatan')->label('Kecamatan')->placeholder('-'),
-                TextEntry::make('tipe')->label('Tipe'),
-                IconEntry::make('aktif')->boolean()->label('Aktif'),
-                TextEntry::make('created_at')->dateTime()->label('Dibuat Pada'),
-            ]),
+            Section::make("Detail OPD")
+                ->columns(6)
+                ->columnSpanFull()
+                ->schema([
+                    SpatieMediaLibraryImageEntry::make("logo")
+                        ->label("Logo")
+                        ->collection("logo")
+                        ->conversion("thumb")
+                        ->circular()
+                        ->defaultImageUrl(
+                            fn($record) => "https://ui-avatars.com/api/?name=" .
+                                urlencode($record->nama_instansi) .
+                                "&background=d97706&color=fff",
+                        ),
+                    TextEntry::make("kode_instansi")->label("Kode OPD"),
+                    TextEntry::make("nama_instansi")->label("Nama OPD"),
+                    TextEntry::make("kecamatan")
+                        ->label("Kecamatan")
+                        ->placeholder("-"),
+                    TextEntry::make("tipe")->label("Tipe"),
+                    IconEntry::make("aktif")->boolean()->label("Aktif"),
+                    TextEntry::make("deskripsi_layanan")
+                        ->columnSpanFull()
+                        ->label("Deskripsi Layanan")
+                        ->placeholder("-"),
+                ]),
         ]);
     }
 }

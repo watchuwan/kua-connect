@@ -15,6 +15,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class PendaftaranResource extends Resource
@@ -54,5 +56,18 @@ class PendaftaranResource extends Resource
             'view' => ViewPendaftaran::route('/{record}'),
             'edit' => EditPendaftaran::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        $user = Auth::user();
+
+        if ($user && !$user->hasRole("super_admin") && $user->instansi_id) {
+            $query->whereHas("pelayanan", fn (Builder $q) => $q->where("instansi_id", $user->instansi_id));
+        }
+
+        return $query;
     }
 }

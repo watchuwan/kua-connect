@@ -22,9 +22,9 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-10 border-b border-neutral-800">
             <div class="flex items-center gap-3">
                 @if($logo)
-                    <img src="{{ $logo }}" alt="Logo" class="h-10 w-10 rounded-xl object-contain" loading="lazy">
+                <img src="{{ $logo }}" alt="Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy">
                 @else
-                    <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white font-display font-bold">TM</span>
+                <span class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-white font-display font-bold text-lg">TM</span>
                 @endif
                 <div>
                     <span class="font-display text-lg font-bold text-white">{{ $portalName }}</span>

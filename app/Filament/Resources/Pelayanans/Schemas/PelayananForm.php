@@ -22,6 +22,7 @@ class PelayananForm
                 ->schema([
                     SpatieMediaLibraryFileUpload::make('icon')
                         ->label('Icon')
+                        ->disk('public')
                         ->collection('icon')
                         ->conversion('thumb')
                         ->image()
