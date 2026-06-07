@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Enums\StatusPendaftaran;
 use App\Models\Pendaftaran;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -22,15 +23,20 @@ class QueueStatsOverview extends StatsOverviewWidget
                 ->description('Total pendaftaran')
                 ->icon('heroicon-o-clipboard-document-list')
                 ->color('info'),
-            Stat::make('Menunggu', Pendaftaran::whereDate('created_at', $today)->where('status', 'waiting')->count())
-                ->description('Belum dilayani')
+            Stat::make('Pending', Pendaftaran::whereDate('created_at', $today)->where('status', StatusPendaftaran::Pending->value)->count())
+                ->description('Menunggu verifikasi')
                 ->icon('heroicon-o-clock')
                 ->color('warning'),
-            Stat::make('Sedang Dilayani', Pendaftaran::whereDate('created_at', $today)->where('status', 'serving')->count())
+            Stat::make('Proses', Pendaftaran::whereDate('created_at', $today)->whereIn('status', [
+                StatusPendaftaran::VerifikasiFisik->value,
+                StatusPendaftaran::MenungguPembayaran->value,
+                StatusPendaftaran::SiapIkrar->value,
+                StatusPendaftaran::JadwalDitugaskan->value,
+            ])->count())
                 ->description('Dalam proses')
                 ->icon('heroicon-o-user-group')
                 ->color('primary'),
-            Stat::make('Selesai', Pendaftaran::whereDate('created_at', $today)->where('status', 'done')->count())
+            Stat::make('Selesai', Pendaftaran::whereDate('created_at', $today)->where('status', StatusPendaftaran::Selesai->value)->count())
                 ->description('Hari ini')
                 ->icon('heroicon-o-check-badge')
                 ->color('success'),

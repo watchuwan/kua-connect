@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -16,7 +15,7 @@ class Pelayanan extends Model implements HasMedia
     use HasSlug, InteractsWithMedia;
 
     protected $table = 'master.pelayanan';
-    protected $fillable = ['nama_pelayanan', 'instansi_id', 'aktif'];
+    protected $fillable = ['nama_pelayanan', 'aktif'];
 
     protected function casts(): array
     {
@@ -25,16 +24,16 @@ class Pelayanan extends Model implements HasMedia
         ];
     }
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('nama_pelayanan')
             ->saveSlugsTo('slug');
-    }
-
-    public function instansi(): BelongsTo
-    {
-        return $this->belongsTo(Instansi::class, 'instansi_id');
     }
 
     public function pendaftaran(): HasMany

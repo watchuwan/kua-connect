@@ -11,27 +11,27 @@ class AppSettingSeeder extends Seeder
     {
         $settings = [
             // General
-            ['key' => 'nama_portal', 'value' => 'Tangkab Melayani', 'group' => 'general'],
-            ['key' => 'deskripsi_portal', 'value' => 'Portal Pelayanan Publik Kabupaten Tangerang', 'group' => 'general'],
+            ['key' => 'nama_portal', 'value' => 'KUA Connect', 'group' => 'general'],
+            ['key' => 'deskripsi_portal', 'value' => 'Portal Pelayanan Publik KUA Kecamatan', 'group' => 'general'],
             ['key' => 'logo', 'value' => '', 'group' => 'general'],
             ['key' => 'hero_image', 'value' => '', 'group' => 'general'],
 
             // Contact
-            ['key' => 'alamat', 'value' => 'Komplek Pusat Pemerintahan Kabupaten Tangerang, Tigaraksa, Banten 15720', 'group' => 'contact'],
-            ['key' => 'email', 'value' => 'admin@tangerangkab.go.id', 'group' => 'contact'],
+            ['key' => 'alamat', 'value' => 'Kantor Urusan Agama Kecamatan, Banten', 'group' => 'contact'],
+            ['key' => 'email', 'value' => 'admin@kua-connect.go.id', 'group' => 'contact'],
             ['key' => 'telepon', 'value' => '(021) 1234-5678', 'group' => 'contact'],
 
             // Social Media
-            ['key' => 'facebook', 'value' => 'https://facebook.com/kabtangerang', 'group' => 'social'],
-            ['key' => 'instagram', 'value' => 'https://instagram.com/kabtangerang', 'group' => 'social'],
-            ['key' => 'twitter', 'value' => 'https://twitter.com/kabtangerang', 'group' => 'social'],
-            ['key' => 'youtube', 'value' => 'https://youtube.com/@kabtangerang', 'group' => 'social'],
+            ['key' => 'facebook', 'value' => 'https://facebook.com/kua-connect', 'group' => 'social'],
+            ['key' => 'instagram', 'value' => 'https://instagram.com/kua-connect', 'group' => 'social'],
+            ['key' => 'twitter', 'value' => 'https://twitter.com/kua-connect', 'group' => 'social'],
+            ['key' => 'youtube', 'value' => 'https://youtube.com/@kua-connect', 'group' => 'social'],
 
             // Important Links
-            ['key' => 'link_pemkab', 'value' => 'https://www.tangerangkab.go.id', 'group' => 'links'],
+            ['key' => 'link_pemkab', 'value' => 'https://www.kemenag.go.id', 'group' => 'links'],
             ['key' => 'link_satu_data_nasional', 'value' => 'https://satudata.go.id', 'group' => 'links'],
             ['key' => 'link_bappenas', 'value' => 'https://www.bappenas.go.id', 'group' => 'links'],
-            ['key' => 'link_bps', 'value' => 'https://tangerangkab.bps.go.id', 'group' => 'links'],
+            ['key' => 'link_bps', 'value' => 'https://www.bps.go.id', 'group' => 'links'],
         ];
 
         foreach ($settings as $setting) {

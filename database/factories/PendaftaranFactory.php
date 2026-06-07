@@ -20,34 +20,25 @@ class PendaftaranFactory extends Factory
                 'alamat' => fake()->address(),
                 'no_hp' => fake()->phoneNumber(),
             ],
-            'status' => fake()->randomElement(StatusPendaftaran::cases()),
+            'status' => StatusPendaftaran::Pending,
             'waktu_dilayani' => null,
             'waktu_selesai' => null,
         ];
     }
 
-    public function waiting(): static
+    public function pending(): static
     {
         return $this->state(fn () => [
-            'status' => StatusPendaftaran::Waiting,
+            'status' => StatusPendaftaran::Pending,
             'waktu_dilayani' => null,
             'waktu_selesai' => null,
         ]);
     }
 
-    public function serving(): static
+    public function selesai(): static
     {
         return $this->state(fn () => [
-            'status' => StatusPendaftaran::Serving,
-            'waktu_dilayani' => now(),
-            'waktu_selesai' => null,
-        ]);
-    }
-
-    public function done(): static
-    {
-        return $this->state(fn () => [
-            'status' => StatusPendaftaran::Done,
+            'status' => StatusPendaftaran::Selesai,
             'waktu_dilayani' => now()->subHour(),
             'waktu_selesai' => now(),
         ]);

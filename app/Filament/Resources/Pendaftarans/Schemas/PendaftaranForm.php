@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Pendaftarans\Schemas;
 use App\Enums\StatusPendaftaran;
 use App\Models\FormField;
 use App\Models\Pelayanan;
+use App\Models\Penghulu;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
@@ -27,18 +28,77 @@ class PendaftaranForm
                     ->preload()
                     ->required()
                     ->live(),
-                Select::make('status')->label('Status')->options(StatusPendaftaran::class)->default('waiting')->required(),
+                Select::make('status')->label('Status')
+                    ->options(fn (Get $get): array => static::getStatusOptions($get))
+                    ->visible(fn (string $operation): bool => $operation !== 'create')
+                    ->required(),
             ]),
 
             Section::make('Data Pemohon')
                 ->columnSpanFull()
                 ->schema(fn (Get $get, ?array $state) => static::buildDynamicFields($get('pelayanan_id'))),
 
+            Section::make('Catatan & Dokumen')->columnSpanFull()->schema([
+                Textarea::make('catatan')->label('Catatan Admin')
+                    ->helperText('Alasan revisi, instruksi, atau keterangan lainnya')
+                    ->columnSpanFull(),
+                TextInput::make('no_surat')->label('Nomor Surat / Dokumen Resmi')
+                    ->helperText('Nomor AIW, Rekomendasi, SK Mualaf, atau Sertifikat Kiblat')
+                    ->columnSpanFull(),
+                Select::make('penghulu_id')->label('Penghulu Bertugas')
+                    ->relationship('penghulu', 'nama')
+                    ->searchable()
+                    ->preload()
+                    ->nullable()
+                    ->visible(fn (Get $get): bool => static::isNikahService($get)),
+                DateTimePicker::make('jadwal_kedatangan')->label('Jadwal Kedatangan'),
+                TextInput::make('derajat_kiblat')->label('Derajat Arah Kiblat')
+                    ->visible(fn (Get $get): bool => static::isKiblatService($get))
+                    ->numeric()
+                    ->suffix('°'),
+            ]),
+
             Section::make('Waktu')->columnSpanFull()->schema([
                 DateTimePicker::make('waktu_dilayani')->label('Waktu Dilayani'),
                 DateTimePicker::make('waktu_selesai')->label('Waktu Selesai'),
             ]),
         ]);
+    }
+
+    protected static function getStatusOptions(Get $get): array
+    {
+        $serviceId = $get('pelayanan_id');
+        $service = $serviceId ? Pelayanan::find($serviceId) : null;
+        $slug = $service?->slug;
+
+        if (!$slug) {
+            return StatusPendaftaran::class;
+        }
+
+        $transitions = StatusPendaftaran::transitionsForService($slug);
+        $allOptions = [];
+        foreach ($transitions as $from => $tos) {
+            $allOptions[$from] = StatusPendaftaran::from($from)->getLabel();
+            foreach ($tos as $to) {
+                $allOptions[$to] = StatusPendaftaran::from($to)->getLabel();
+            }
+        }
+
+        return $allOptions;
+    }
+
+    protected static function isKiblatService(Get $get): bool
+    {
+        $serviceId = $get('pelayanan_id');
+        $service = $serviceId ? Pelayanan::find($serviceId) : null;
+        return $service?->slug === 'kalibrasi-arah-kiblat';
+    }
+
+    protected static function isNikahService(Get $get): bool
+    {
+        $serviceId = $get('pelayanan_id');
+        $service = $serviceId ? Pelayanan::find($serviceId) : null;
+        return $service?->slug === 'pendaftaran-nikah';
     }
 
     protected static function buildDynamicFields(?string $pelayananId): array
@@ -78,11 +138,11 @@ class PendaftaranForm
                 'tel' => TextInput::make($name)->label($field->label)->tel(),
                 'number' => TextInput::make($name)->label($field->label)->numeric(),
                 'date' => DateTimePicker::make($name)->label($field->label),
-                'file', 'image' => SpatieMediaLibraryFileUpload::make($name)
+                'file', 'image' => SpatieMediaLibraryFileUpload::make('uploads.' . $field->name)
                     ->label($field->label)
                     ->disk('public')
                     ->collection('pendaftaran_files')
-                    ->multiple()
+                    ->when($field->isMultiple(), fn (SpatieMediaLibraryFileUpload $c) => $c->multiple())
                     ->maxSize(($field->getFileUploadConfig()['max_size'] ?? 2048) * 1024)
                     ->when(
                         !empty($field->getFileUploadConfig()['mimes']),

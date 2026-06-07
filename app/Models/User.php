@@ -9,7 +9,6 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
@@ -17,7 +16,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(["name", "email", "password", "instansi_id", "is_active"])]
+#[Fillable(["name", "email", "password", "is_active"])]
 #[Hidden(["password", "remember_token"])]
 class User extends Authenticatable implements FilamentUser, HasMedia
 {
@@ -29,17 +28,13 @@ class User extends Authenticatable implements FilamentUser, HasMedia
         return [
             "email_verified_at" => "datetime",
             "password" => "hashed",
+            "is_active" => "boolean",
         ];
     }
 
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
-    }
-
-    public function instansi(): BelongsTo
-    {
-        return $this->belongsTo(Instansi::class, 'instansi_id');
     }
 
     public function registerMediaCollections(?Media $media = null): void

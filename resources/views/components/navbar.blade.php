@@ -2,10 +2,7 @@
 $navItems = [
     ['label' => 'Beranda', 'href' => '/'],
     ['label' => 'Lacak Antrean', 'href' => '/tracking'],
-    ['label' => 'Layanan', 'href' => '#', 'children' => [
-        ['label' => 'Daftar Layanan', 'href' => '/layanan'],
-        ['label' => 'OPD', 'href' => '/opd'],
-    ]],
+    ['label' => 'Layanan', 'href' => '/layanan'],
 ];
 @endphp
 
@@ -15,12 +12,12 @@ $navItems = [
         <a href="/" class="flex items-center gap-2">
             @php
                 try { $logo = \App\Models\AppSetting::getLogo(); } catch(\Throwable $e) { $logo = null; }
-                try { $portalName = \App\Models\AppSetting::get('nama_portal', 'Tangkab Melayani'); } catch(\Throwable $e) { $portalName = 'Tangkab Melayani'; }
+                try { $portalName = \App\Models\AppSetting::get('nama_portal', 'KUA Connect'); } catch(\Throwable $e) { $portalName = 'KUA Connect'; }
             @endphp
             @if($logo)
                 <img src="{{ $logo }}" alt="Logo" class="h-11 w-11 rounded-lg object-contain" loading="lazy">
                 @else
-                <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-primary text-white font-display font-bold text-sm">TM</span>
+                <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-primary text-white font-display font-bold text-sm">KC</span>
             @endif
             <span class="font-display text-lg font-bold text-neutral-900">{{ $portalName }}</span>
         </a>

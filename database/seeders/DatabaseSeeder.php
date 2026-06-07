@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AppSettingSeeder::class,
-            InstansiSeeder::class,
             PelayananSeeder::class,
             FormFieldSeeder::class,
             PendaftaranSeeder::class,
+            PenghuluSeeder::class,
         ]);
     }
 }

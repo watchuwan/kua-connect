@@ -116,6 +116,17 @@ class PelayananForm
                                             "Format yang diizinkan (pisahkan koma)",
                                         ),
                                 ]),
+                            Toggle::make("multiple")
+                                ->label("Multiple Upload")
+                                ->inline(false)
+                                ->default(false)
+                                ->helperText("Izinkan upload lebih dari satu file")
+                                ->visible(
+                                    fn($get) => in_array($get("type"), [
+                                        "file",
+                                        "image",
+                                    ]),
+                                ),
                             TextInput::make("placeholder")
                                 ->label("Placeholder")
                                 ->helperText("ini placeholder")
@@ -148,9 +159,10 @@ class PelayananForm
                                     "max_size" =>
                                         (int) ($data["max_size"] ?? 2048),
                                     "mimes" => $data["mimes"] ?? "",
+                                    "multiple" => !empty($data["multiple"]),
                                 ];
                             }
-                            unset($data["max_size"], $data["mimes"]);
+                            unset($data["max_size"], $data["mimes"], $data["multiple"]);
                             return $data;
                         })
                         ->mutateRelationshipDataBeforeSaveUsing(function (
@@ -164,9 +176,10 @@ class PelayananForm
                                     "max_size" =>
                                         (int) ($data["max_size"] ?? 2048),
                                     "mimes" => $data["mimes"] ?? "",
+                                    "multiple" => !empty($data["multiple"]),
                                 ];
                             }
-                            unset($data["max_size"], $data["mimes"]);
+                            unset($data["max_size"], $data["mimes"], $data["multiple"]);
                             return $data;
                         })
                         ->mutateRelationshipDataBeforeFillUsing(function (
@@ -182,6 +195,7 @@ class PelayananForm
                                 $data["mimes"] = is_array($options)
                                     ? $options["mimes"] ?? ""
                                     : "";
+                                $data["multiple"] = !empty($options["multiple"]);
                             }
                             return $data;
                         }),

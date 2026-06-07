@@ -2,8 +2,6 @@
 
 namespace App\Filament\Pages\Auth;
 
-use App\Models\Tahun;
-use App\Models\Year;
 use Filament\Auth\Pages\Login as BaseLogin;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;

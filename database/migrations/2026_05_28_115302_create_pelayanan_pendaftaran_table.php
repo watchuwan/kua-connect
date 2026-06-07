@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('nomor_antrean')->unique();
             $table->foreignId('pelayanan_id')->constrained('master.pelayanan')->restrictOnDelete();
             $table->jsonb('data');
-            $table->string('status')->default('waiting');
+            $table->string('status')->default('pending');
             $table->string('slug')->unique();
             $table->timestamp('waktu_dilayani')->nullable();
             $table->timestamp('waktu_selesai')->nullable();

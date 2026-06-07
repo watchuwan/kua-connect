@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Enums\StatusPendaftaran;
 use App\Models\Pendaftaran;
 use Filament\Widgets\ChartWidget;
 
@@ -21,20 +22,39 @@ class StatusDistributionChart extends ChartWidget
 
     protected function getData(): array
     {
-        $waiting = Pendaftaran::where('status', 'waiting')->count();
-        $serving = Pendaftaran::where('status', 'serving')->count();
-        $done = Pendaftaran::where('status', 'done')->count();
-        $skipped = Pendaftaran::where('status', 'skipped')->count();
+        $statuses = StatusPendaftaran::cases();
+        $data = [];
+        $labels = [];
+        $colors = [];
+
+        foreach ($statuses as $status) {
+            $count = Pendaftaran::where('status', $status->value)->count();
+            if ($count > 0) {
+                $data[] = $count;
+                $labels[] = $status->getLabel();
+                $colors[] = match ($status) {
+                    StatusPendaftaran::Pending => '#f59e0b',
+                    StatusPendaftaran::PerluRevisi => '#ef4444',
+                    StatusPendaftaran::MenungguPembayaran => '#f59e0b',
+                    StatusPendaftaran::VerifikasiFisik => '#3b82f6',
+                    StatusPendaftaran::JadwalDikunci => '#8b5cf6',
+                    StatusPendaftaran::SiapIkrar => '#10b981',
+                    StatusPendaftaran::JadwalDitugaskan => '#3b82f6',
+                    StatusPendaftaran::Selesai => '#10b981',
+                    StatusPendaftaran::Dibatalkan => '#6b7280',
+                };
+            }
+        }
 
         return [
             'datasets' => [
                 [
-                    'data' => [$waiting, $serving, $done, $skipped],
-                    'backgroundColor' => ['#f59e0b', '#3b82f6', '#10b981', '#6b7280'],
+                    'data' => $data,
+                    'backgroundColor' => $colors,
                     'borderWidth' => 0,
                 ],
             ],
-            'labels' => ['Menunggu', 'Sedang Dilayani', 'Selesai', 'Dilewati'],
+            'labels' => $labels,
         ];
     }
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\Instansis\Pages;
+namespace App\Filament\Resources\Penghulus\Pages;
 
-use App\Filament\Resources\Instansis\InstansiResource;
+use App\Filament\Resources\Penghulus\PenghuluResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
-class ViewInstansi extends ViewRecord
+class ViewPenghulu extends ViewRecord
 {
-    protected static string $resource = InstansiResource::class;
+    protected static string $resource = PenghuluResource::class;
 
     protected function getHeaderActions(): array
     {

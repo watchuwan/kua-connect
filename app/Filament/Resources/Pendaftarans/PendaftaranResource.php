@@ -12,11 +12,10 @@ use App\Filament\Resources\Pendaftarans\Tables\PendaftaransTable;
 use App\Models\Pendaftaran;
 use BackedEnum;
 use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class PendaftaranResource extends Resource
@@ -60,14 +59,6 @@ class PendaftaranResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery();
-
-        $user = Auth::user();
-
-        if ($user && !$user->hasRole("super_admin") && $user->instansi_id) {
-            $query->whereHas("pelayanan", fn (Builder $q) => $q->where("instansi_id", $user->instansi_id));
-        }
-
-        return $query;
+        return parent::getEloquentQuery();
     }
 }

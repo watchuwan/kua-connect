@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Pendaftarans\Pages;
 
+use App\Enums\StatusPendaftaran;
 use App\Filament\Resources\Pendaftarans\PendaftaranResource;
 use App\Models\Pendaftaran;
 use Filament\Notifications\Notification;
@@ -20,6 +21,7 @@ class CreatePendaftaran extends CreateRecord
 
         $sequence = $last ? (int) substr($last, -4) + 1 : 1;
         $data['nomor_antrean'] = sprintf('A-%s%04d', $today, $sequence);
+        $data['status'] = StatusPendaftaran::Pending->value;
 
         return $data;
     }

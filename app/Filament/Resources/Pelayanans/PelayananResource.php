@@ -12,11 +12,10 @@ use App\Filament\Resources\Pelayanans\Tables\PelayanansTable;
 use App\Models\Pelayanan;
 use BackedEnum;
 use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class PelayananResource extends Resource
@@ -25,13 +24,13 @@ class PelayananResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
-    protected static ?string $recordTitleAttribute = 'nama_pelayanan';
+    protected static ?string $recordTitleAttribute = "nama_pelayanan";
 
-    protected static string|UnitEnum|null $navigationGroup = 'Master';
+    protected static string|UnitEnum|null $navigationGroup = "Master Data";
 
-    protected static ?string $modelLabel = 'Pelayanan';
+    protected static ?string $modelLabel = "Pelayanan";
 
-    protected static ?string $pluralModelLabel = 'Pelayanan';
+    protected static ?string $pluralModelLabel = "Pelayanan";
 
     public static function form(Schema $schema): Schema
     {
@@ -51,23 +50,15 @@ class PelayananResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListPelayanans::route('/'),
-            'create' => CreatePelayanan::route('/create'),
-            'view' => ViewPelayanan::route('/{record}'),
-            'edit' => EditPelayanan::route('/{record}/edit'),
+            "index" => ListPelayanans::route("/"),
+            "create" => CreatePelayanan::route("/create"),
+            "view" => ViewPelayanan::route("/{record}"),
+            "edit" => EditPelayanan::route("/{record}/edit"),
         ];
     }
 
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery();
-
-        $user = Auth::user();
-
-        if ($user && !$user->hasRole("super_admin") && $user->instansi_id) {
-            $query->where("instansi_id", $user->instansi_id);
-        }
-
-        return $query;
+        return parent::getEloquentQuery();
     }
 }

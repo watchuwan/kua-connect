@@ -3,9 +3,10 @@
 namespace App\Filament\Widgets;
 
 use App\Enums\StatusPendaftaran;
+use App\Filament\Resources\Pendaftarans\Actions\TransisiStatusAction;
 use App\Models\Pendaftaran;
-use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
@@ -40,64 +41,28 @@ class QueueListWidget extends TableWidget
                 TextColumn::make("status")
                     ->label("Status")
                     ->badge()
-                    ->color(
-                        fn(StatusPendaftaran $state) => match ($state) {
-                            StatusPendaftaran::Waiting => "warning",
-                            StatusPendaftaran::Serving => "info",
-                            StatusPendaftaran::Done => "success",
-                            StatusPendaftaran::Skipped => "danger",
-                        },
-                    )
+                    ->color(fn (StatusPendaftaran $state) => $state->getColor())
+                    ->icon(fn (StatusPendaftaran $state) => $state->getIcon())
                     ->sortable(),
+                SpatieMediaLibraryImageColumn::make("media")
+                    ->label("File")
+                    ->collection("pendaftaran_files")
+                    ->conversion("thumb")
+                    ->limit(3)
+                    ->square()
+                    ->stacked(),
                 TextColumn::make("created_at")
                     ->label("Waktu Daftar")
                     ->dateTime("H:i")
                     ->sortable(),
             ])
             ->actions([
-                ActionGroup::make([
-                    Action::make("serve")
-                        ->label("Layani")
-                        ->icon("heroicon-o-play")
-                        ->color("info")
-                        ->visible(
-                            fn(Pendaftaran $record) => $record->status ===
-                                StatusPendaftaran::Waiting,
-                        )
-                        ->action(
-                            fn(Pendaftaran $record) => $record->update([
-                                "status" => StatusPendaftaran::Serving,
-                                "waktu_dilayani" => now(),
-                            ]),
-                        ),
-                    Action::make("done")
-                        ->label("Selesai")
-                        ->icon("heroicon-o-check")
-                        ->color("success")
-                        ->visible(
-                            fn(Pendaftaran $record) => $record->status ===
-                                StatusPendaftaran::Serving,
-                        )
-                        ->action(
-                            fn(Pendaftaran $record) => $record->update([
-                                "status" => StatusPendaftaran::Done,
-                                "waktu_selesai" => now(),
-                            ]),
-                        ),
-                    Action::make("skip")
-                        ->label("Lewati")
-                        ->icon("heroicon-o-forward")
-                        ->color("danger")
-                        ->visible(
-                            fn(Pendaftaran $record) => $record->status ===
-                                StatusPendaftaran::Waiting,
-                        )
-                        ->action(
-                            fn(Pendaftaran $record) => $record->update([
-                                "status" => StatusPendaftaran::Skipped,
-                            ]),
-                        ),
-                ]),
+                ActionGroup::make(
+                    TransisiStatusAction::getAllTransitionActions(),
+                )
+                    ->label('Proses')
+                    ->icon('heroicon-m-arrow-right-circle'),
             ]);
     }
+
 }

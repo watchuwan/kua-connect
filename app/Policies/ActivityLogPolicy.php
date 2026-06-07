@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Models\ActivityLog;
 use Illuminate\Foundation\Auth\User as AuthUser;
+use App\Models\ActivityLog;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ActivityLogPolicy
@@ -71,4 +71,5 @@ class ActivityLogPolicy
     {
         return $authUser->can('Reorder:ActivityLog');
     }
+
 }

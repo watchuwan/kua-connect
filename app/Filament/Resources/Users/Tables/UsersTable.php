@@ -22,7 +22,6 @@ class UsersTable
                     ->defaultImageUrl(fn ($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->name) . '&background=d97706&color=fff&size=40')
                     ->size(40),
                 TextColumn::make("name")->searchable(),
-                TextColumn::make("instansi.nama_instansi")->label("Instansi")->searchable()->sortable(),
                 TextColumn::make("email")->label("Email address")->searchable(),
                 TextColumn::make("roles.name")->label("Peran")->sortable(),
             ])

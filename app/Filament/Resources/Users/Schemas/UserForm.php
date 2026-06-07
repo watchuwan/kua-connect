@@ -30,11 +30,6 @@ class UserForm
                     ->label("Alamat Email")
                     ->email()
                     ->required(),
-                Select::make("instansi_id")
-                    ->label("Instansi")
-                    ->relationship("instansi", "nama_instansi")
-                    ->searchable()
-                    ->preload(),
                 Select::make("roles")
                     ->label("Peran")
                     ->relationship("roles", "name")
@@ -43,7 +38,11 @@ class UserForm
                 DateTimePicker::make("email_verified_at")
                     ->default(now())
                     ->readOnly(),
-                TextInput::make("password")->password()->required(),
+                TextInput::make("password")
+                    ->password()
+                    ->required(fn (string $operation): bool => $operation === 'create')
+                    ->dehydrated(fn (?string $state): bool => filled($state))
+                    ->helperText(fn (string $operation): string => $operation === 'edit' ? 'Kosongkan jika tidak ingin mengubah password' : ''),
                 Toggle::make("is_active")->inline(false)->required(),
             ]),
         ]);

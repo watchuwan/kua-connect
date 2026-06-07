@@ -1,10 +1,10 @@
 <footer class="bg-neutral-900 text-neutral-300">
     @php
         try { $logo = \App\Models\AppSetting::getLogo(); } catch(\Throwable $e) { $logo = null; }
-        try { $portalName = \App\Models\AppSetting::get('nama_portal', 'Tangkab Melayani'); } catch(\Throwable $e) { $portalName = 'Tangkab Melayani'; }
-        try { $deskripsi = \App\Models\AppSetting::get('deskripsi_portal', 'Portal Pelayanan Publik Kabupaten Tangerang'); } catch(\Throwable $e) { $deskripsi = 'Portal Pelayanan Publik Kabupaten Tangerang'; }
-        try { $alamat = \App\Models\AppSetting::get('alamat', 'Tigaraksa, Tangerang, Banten'); } catch(\Throwable $e) { $alamat = 'Tigaraksa, Tangerang, Banten'; }
-        try { $email = \App\Models\AppSetting::get('email', 'admin@tangerangkab.go.id'); } catch(\Throwable $e) { $email = 'admin@tangerangkab.go.id'; }
+        try { $portalName = \App\Models\AppSetting::get('nama_portal', 'KUA Connect'); } catch(\Throwable $e) { $portalName = 'KUA Connect'; }
+        try { $deskripsi = \App\Models\AppSetting::get('deskripsi_portal', 'Portal Pelayanan Publik KUA Kecamatan'); } catch(\Throwable $e) { $deskripsi = 'Portal Pelayanan Publik KUA Kecamatan'; }
+        try { $alamat = \App\Models\AppSetting::get('alamat', 'KUA Kecamatan, Banten'); } catch(\Throwable $e) { $alamat = 'KUA Kecamatan, Banten'; }
+        try { $email = \App\Models\AppSetting::get('email', 'admin@kua-connect.go.id'); } catch(\Throwable $e) { $email = 'admin@kua-connect.go.id'; }
         try { $telepon = \App\Models\AppSetting::get('telepon'); } catch(\Throwable $e) { $telepon = null; }
         try { $fb = \App\Models\AppSetting::get('facebook'); } catch(\Throwable $e) { $fb = null; }
         try { $ig = \App\Models\AppSetting::get('instagram'); } catch(\Throwable $e) { $ig = null; }
@@ -24,11 +24,11 @@
                 @if($logo)
                 <img src="{{ $logo }}" alt="Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy">
                 @else
-                <span class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-white font-display font-bold text-lg">TM</span>
+                <span class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-white font-display font-bold text-lg">KC</span>
                 @endif
                 <div>
                     <span class="font-display text-lg font-bold text-white">{{ $portalName }}</span>
-                    <p class="text-xs text-neutral-500">Kabupaten Tangerang</p>
+                    <p class="text-xs text-neutral-500">KUA Kecamatan</p>
                 </div>
             </div>
             {{-- Social Media --}}
@@ -86,7 +86,6 @@
                     <li><a href="/" wire:navigate class="text-sm text-neutral-400 hover:text-primary-light transition-colors">Beranda</a></li>
                     <li><a href="/tracking" wire:navigate class="text-sm text-neutral-400 hover:text-primary-light transition-colors">Lacak Antrean</a></li>
                     <li><a href="/layanan" wire:navigate class="text-sm text-neutral-400 hover:text-primary-light transition-colors">Layanan</a></li>
-                    <li><a href="/opd" wire:navigate class="text-sm text-neutral-400 hover:text-primary-light transition-colors">OPD</a></li>
                 </ul>
             </div>
 
@@ -95,10 +94,10 @@
                 <h4 class="font-display text-sm font-semibold uppercase tracking-wider text-white mb-4">Link Penting</h4>
                 @php
                     $links = [
-                        ['key' => 'link_pemkab', 'label' => 'Website Pemkab Tangerang'],
+                        ['key' => 'link_pemkab', 'label' => 'Kemenag RI'],
                         ['key' => 'link_satu_data_nasional', 'label' => 'Satu Data Indonesia'],
                         ['key' => 'link_bappenas', 'label' => 'Bappenas RI'],
-                        ['key' => 'link_bps', 'label' => 'BPS Kabupaten Tangerang'],
+                        ['key' => 'link_bps', 'label' => 'BPS RI'],
                     ];
                 @endphp
                 <ul class="space-y-2.5">
@@ -149,7 +148,7 @@
     {{-- Copyright --}}
     <div class="border-t border-neutral-800">
         <div class="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
-            <p class="text-xs text-neutral-500">&copy; {{ date('Y') }} Tangkab Melayani. Semua Hak Dilindungi.</p>
+            <p class="text-xs text-neutral-500">&copy; {{ date('Y') }} KUA Connect. Semua Hak Dilindungi.</p>
         </div>
     </div>
 </footer>

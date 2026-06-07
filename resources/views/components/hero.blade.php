@@ -1,13 +1,13 @@
 @php
-try { $portalName = \App\Models\AppSetting::get('nama_portal', 'Tangkab Melayani'); } catch(\Throwable $e) { $portalName = 'Tangkab Melayani'; }
-try { $deskripsi = \App\Models\AppSetting::get('deskripsi_portal', 'Portal Pelayanan Publik Kabupaten Tangerang'); } catch(\Throwable $e) { $deskripsi = 'Portal Pelayanan Publik Kabupaten Tangerang'; }
+try { $portalName = \App\Models\AppSetting::get('nama_portal', 'KUA Connect'); } catch(\Throwable $e) { $portalName = 'KUA Connect'; }
+try { $deskripsi = \App\Models\AppSetting::get('deskripsi_portal', 'Portal Pelayanan Publik KUA Kecamatan'); } catch(\Throwable $e) { $deskripsi = 'Portal Pelayanan Publik KUA Kecamatan'; }
 @endphp
 
 <section class="relative overflow-hidden bg-white">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-32">
         <div class="mx-auto max-w-3xl text-center">
             <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50/50 px-3 py-1 text-xs font-medium text-neutral-500 tracking-wide">
-                Portal Resmi Kabupaten Tangerang
+                Portal Resmi KUA Kecamatan
             </span>
             <h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl leading-[1.1]">
                 Selamat Datang di
@@ -24,7 +24,7 @@ try { $deskripsi = \App\Models\AppSetting::get('deskripsi_portal', 'Portal Pelay
                     Lacak Antrean
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                 </a>
-                <a href="/layanan" wire:navigate class="inline-flex items-center gap-2 rounded-xl border border-neutral-300 px-7 py-3.5 text-sm font-medium text-neutral-700 transition-all hover:border-neutral-400 hover:bg-neutral-50 active:scale-[0.98]">
+                <a href="/layanan" wire:navigate class="inline-flex items-center gap-2 rounded-xl border border-white/20 px-7 py-3.5 text-sm font-medium text-white/80 transition-all hover:border-white/40 hover:bg-white/10 active:scale-[0.98]">
                     Lihat Layanan
                 </a>
             </div>

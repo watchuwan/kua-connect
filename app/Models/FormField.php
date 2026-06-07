@@ -169,4 +169,16 @@ class FormField extends Model
     {
         return in_array($this->type, ['file', 'image']);
     }
+
+    /**
+     * Cek apakah upload field mendukung multiple files
+     */
+    public function isMultiple(): bool
+    {
+        if (!$this->isFileUpload()) {
+            return false;
+        }
+        $config = $this->getFileUploadConfig();
+        return !empty($config['multiple']);
+    }
 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\Instansis\Pages;
+namespace App\Filament\Resources\Penghulus\Pages;
 
-use App\Filament\Resources\Instansis\InstansiResource;
+use App\Filament\Resources\Penghulus\PenghuluResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditInstansi extends EditRecord
+class EditPenghulu extends EditRecord
 {
-    protected static string $resource = InstansiResource::class;
+    protected static string $resource = PenghuluResource::class;
 
     protected function getHeaderActions(): array
     {

@@ -21,9 +21,6 @@ class UserInfolist
                         ->circular()
                         ->defaultImageUrl(fn ($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->name) . '&background=d97706&color=fff'),
                     TextEntry::make('name'),
-                    TextEntry::make('instansi.nama_instansi')
-                        ->label('Instansi')
-                        ->placeholder('-'),
                     TextEntry::make('email')
                         ->label('Email address'),
                     TextEntry::make('email_verified_at')

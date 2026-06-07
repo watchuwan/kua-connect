@@ -8,7 +8,7 @@ use Livewire\Component;
 
 new class extends Component
 {
-    #[Title('Layanan - Tangkab Melayani')]
+    #[Title('Layanan - KUA Connect')]
     #[Layout('layouts.app')]
 
     #[Computed(persist: true, seconds: 60)]
@@ -43,7 +43,7 @@ new class extends Component
             @if(count($this->daftarLayanan) > 0)
                 <div class="fade-up-child grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach($this->daftarLayanan as $layanan)
-                        <a href="{{ route('pelayanan.show', $layanan['id']) }}" wire:navigate
+                        <a href="{{ route('pelayanan.show', $layanan['slug']) }}" wire:navigate
                            class="fade-up-scale group flex items-center gap-4 rounded-2xl border border-neutral-200/60 bg-white p-5 transition-all hover:border-brand-300 hover:shadow-[0_8px_30px_-8px_rgba(217,119,6,0.12)] hover:-translate-y-0.5">
                             <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 ring-1 ring-brand-200/50 group-hover:ring-brand-300 group-hover:shadow-md group-hover:scale-105 transition-all">
                                 @php
