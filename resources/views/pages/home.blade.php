@@ -89,13 +89,39 @@ new class extends Component
         </div>
 
         {{-- Masjid silhouette --}}
-        <div class="absolute right-0 bottom-0 -z-10 opacity-[0.03]" aria-hidden="true">
-            <svg viewBox="0 0 400 300" width="600" height="450" class="translate-x-12">
-                <path d="M200 30L220 60L240 30L260 60L280 30L260 80H220Z" fill="white"/>
-                <rect x="180" y="80" width="40" height="60" fill="white" rx="2"/>
-                <path d="M160 140L240 140L260 280L140 280Z" fill="white"/>
-                <rect x="180" y="200" width="40" height="80" fill="white" opacity="0.5"/>
-                <rect x="140" y="150" width="120" height="15" fill="white" rx="2"/>
+        <div class="absolute right-0 bottom-0 -z-10 opacity-[0.12]" aria-hidden="true">
+            <svg viewBox="0 0 500 400" width="700" height="560" class="translate-x-16">
+                {{-- Minaret kiri --}}
+                <rect x="40" y="120" width="20" height="280" fill="white"/>
+                <path d="M30 120L50 70L70 120Z" fill="white"/>
+                <circle cx="50" cy="65" r="6" fill="white"/>
+
+                {{-- Minaret kanan --}}
+                <rect x="440" y="120" width="20" height="280" fill="white"/>
+                <path d="M430 120L450 70L470 120Z" fill="white"/>
+                <circle cx="450" cy="65" r="6" fill="white"/>
+
+                {{-- Badan masjid --}}
+                <rect x="120" y="200" width="260" height="200" fill="white" rx="4"/>
+
+                {{-- Teras/depan --}}
+                <rect x="140" y="180" width="220" height="30" fill="white" rx="2"/>
+
+                {{-- Kubah utama --}}
+                <path d="M100 200Q100 80 250 40Q400 80 400 200Z" fill="white"/>
+
+                {{-- Ornamen kubah kecil --}}
+                <circle cx="250" cy="30" r="8" fill="white"/>
+
+                {{-- Pintu --}}
+                <rect x="225" y="280" width="50" height="120" fill="white" rx="25"/>
+                <rect x="225" y="280" width="50" height="120" fill="brand-900" rx="25"/>
+
+                {{-- Jendela kiri --}}
+                <rect x="145" y="240" width="40" height="60" fill="brand-900" rx="8"/>
+
+                {{-- Jendela kanan --}}
+                <rect x="315" y="240" width="40" height="60" fill="brand-900" rx="8"/>
             </svg>
         </div>
 

@@ -1,20 +1,20 @@
 @import "../../../../vendor/filament/filament/resources/css/theme.css";
 
 @theme {
-    --color-brand-50: #eef1f7;
-    --color-brand-100: #dde3ef;
-    --color-brand-200: #c5cddf;
-    --color-brand-300: #7a8bbf;
-    --color-brand-400: #3a5199;
-    --color-brand-500: #0C226F;
-    --color-brand-600: #0a1d5e;
-    --color-brand-700: #081852;
-    --color-brand-800: #061445;
-    --color-brand-900: #030d2b;
+    --color-brand-50: #e8f5e9;
+    --color-brand-100: #c8e6c9;
+    --color-brand-200: #a5d6a7;
+    --color-brand-300: #81c784;
+    --color-brand-400: #66bb6a;
+    --color-brand-500: #006837;
+    --color-brand-600: #005a2f;
+    --color-brand-700: #004d29;
+    --color-brand-800: #003f22;
+    --color-brand-900: #002918;
 
-    --color-primary: #0C226F;
-    --color-primary-dark: #081852;
-    --color-primary-light: #eef1f7;
+    --color-primary: #006837;
+    --color-primary-dark: #004d29;
+    --color-primary-light: #e8f5e9;
 }
 
 @source '../../../../app/Filament/**/*';

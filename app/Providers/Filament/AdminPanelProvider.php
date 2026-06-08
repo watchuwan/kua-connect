@@ -39,7 +39,7 @@ class AdminPanelProvider extends PanelProvider
             //configure components
             CreateRecord::disableCreateAnother();
             CreateAction::configureUsing(function (CreateAction $action): void {
-                $action->button()->createAnother(false)->color(Color::Emerald);
+                $action->button()->createAnother(false)->color(Color::Green);
             });
             EditAction::configureUsing(function (EditAction $action): void {
                 $action->button()->color(Color::Blue);
@@ -59,7 +59,7 @@ class AdminPanelProvider extends PanelProvider
             ->viteTheme("resources/css/filament/admin/theme.css")
             ->login(CustomLogin::class)
             ->colors([
-                "primary" => Color::Blue,
+                "primary" => Color::Emerald,
             ])
             ->discoverResources(
                 in: app_path("Filament/Resources"),
