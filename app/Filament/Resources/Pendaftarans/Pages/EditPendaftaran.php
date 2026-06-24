@@ -7,6 +7,8 @@ use App\Filament\Resources\Pendaftarans\Actions\TransisiStatusAction;
 use App\Filament\Resources\Pendaftarans\PendaftaranResource;
 use App\Models\Pendaftaran;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\RestoreAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
@@ -22,6 +24,10 @@ class EditPendaftaran extends EditRecord
             ...$this->buildTransitionActions($record),
             ViewAction::make(),
             DeleteAction::make(),
+            RestoreAction::make()
+                ->visible(fn (Pendaftaran $record): bool => $record->trashed()),
+            ForceDeleteAction::make()
+                ->visible(fn (Pendaftaran $record): bool => $record->trashed()),
         ];
     }
 

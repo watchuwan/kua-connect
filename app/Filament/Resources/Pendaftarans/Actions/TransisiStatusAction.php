@@ -21,7 +21,7 @@ class TransisiStatusAction
             ->icon($target->getIcon())
             ->color($target->getColor())
             ->visible(
-                fn(Pendaftaran $record): bool => $record->canTransitionTo(
+                fn(Pendaftaran $record): bool => !$record->trashed() && $record->canTransitionTo(
                     $target,
                 ),
             )

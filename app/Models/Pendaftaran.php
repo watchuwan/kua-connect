@@ -7,6 +7,7 @@ use App\Services\PdfGenerator;
 use App\Services\WhatsAppService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -15,7 +16,7 @@ use Spatie\Sluggable\SlugOptions;
 
 class Pendaftaran extends Model implements HasMedia
 {
-    use HasSlug, InteractsWithMedia;
+    use HasSlug, InteractsWithMedia, SoftDeletes;
 
     protected static function booted(): void
     {

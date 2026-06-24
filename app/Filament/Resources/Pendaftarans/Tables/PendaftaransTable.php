@@ -9,10 +9,15 @@ use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreAction;
+use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
 class PendaftaransTable
@@ -55,20 +60,30 @@ class PendaftaransTable
                 SelectFilter::make("pelayanan_id")
                     ->label("Pelayanan")
                     ->relationship("pelayanan", "nama_pelayanan"),
+                TrashedFilter::make(),
             ])
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                RestoreAction::make()
+                    ->visible(fn (Pendaftaran $record): bool => $record->trashed()),
+                ForceDeleteAction::make()
+                    ->visible(fn (Pendaftaran $record): bool => $record->trashed()),
                 ActionGroup::make(
                     TransisiStatusAction::getAllTransitionActions(),
                 )
                     ->label("Proses")
                     ->icon("heroicon-o-chevron-up-down")
                     ->button()
-                    ->color("warning"),
+                    ->color("warning")
+                    ->visible(fn (Pendaftaran $record): bool => !$record->trashed()),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([DeleteBulkAction::make()]),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                ]),
             ]);
     }
 

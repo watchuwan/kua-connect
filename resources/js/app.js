@@ -11,13 +11,18 @@ function initScrollAnimations() {
         { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
     );
 
-    document.querySelectorAll('.fade-up:not(.shown), .fade-up-scale:not(.shown), .fade-left:not(.shown), .fade-right:not(.shown), .fade-up-child:not(.shown)').forEach((el) => observer.observe(el));
+    document.querySelectorAll('.fade-up:not(.shown), .fade-up-scale:not(.shown), .fade-left:not(.shown), .fade-right:not(.shown), .fade-up-child:not(.shown)').forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+            el.classList.add('shown');
+        } else {
+            observer.observe(el);
+        }
+    });
 }
 
 initScrollAnimations();
 document.addEventListener('livewire:navigated', initScrollAnimations);
-document.addEventListener('livewire:load', initScrollAnimations);
-document.addEventListener('livewire:update', initScrollAnimations);
 
 document.addEventListener('alpine:init', () => {
     Alpine.data('heroBg', () => ({

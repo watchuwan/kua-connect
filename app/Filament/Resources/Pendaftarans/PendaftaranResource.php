@@ -59,6 +59,6 @@ class PendaftaranResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery();
+        return parent::getEloquentQuery()->withTrashed();
     }
 }

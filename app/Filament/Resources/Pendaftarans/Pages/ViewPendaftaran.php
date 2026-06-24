@@ -25,6 +25,10 @@ class ViewPendaftaran extends ViewRecord
 
     protected function buildTransitionActions(Pendaftaran $record): array
     {
+        if ($record->trashed()) {
+            return [];
+        }
+
         return array_map(
             fn (StatusPendaftaran $target) => TransisiStatusAction::make($target),
             $record->getAllowedTransitions(),
