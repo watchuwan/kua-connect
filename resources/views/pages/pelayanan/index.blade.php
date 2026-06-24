@@ -33,7 +33,7 @@ new class extends Component
 
     <section class="bg-white">
         <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
-            <div class="fade-up mb-12">
+            <div class="mb-12">
                 <span class="text-xs font-semibold uppercase tracking-[0.15em] text-brand-600">Layanan</span>
                 <h1 class="mt-2 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">Daftar Layanan</h1>
                 <div class="mt-3 h-0.5 w-12 bg-neutral-200 rounded-full"></div>
@@ -41,10 +41,10 @@ new class extends Component
             </div>
 
             @if(count($this->daftarLayanan) > 0)
-                <div class="fade-up-child grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div class=" grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach($this->daftarLayanan as $layanan)
                         <a href="{{ route('pelayanan.show', $layanan['slug']) }}" wire:navigate
-                           class="fade-up-scale group flex items-center gap-4 rounded-2xl border border-neutral-200/60 bg-white p-5 transition-all hover:border-brand-300 hover:shadow-[0_8px_30px_-8px_rgba(217,119,6,0.12)] hover:-translate-y-0.5">
+                           class=" group flex items-center gap-4 rounded-2xl border border-neutral-200/60 bg-white p-5 transition-all hover:border-brand-300 hover:shadow-[0_8px_30px_-8px_rgba(217,119,6,0.12)] hover:-translate-y-0.5">
                             <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 ring-1 ring-brand-200/50 group-hover:ring-brand-300 group-hover:shadow-md group-hover:scale-105 transition-all">
                                 @php
                                     $mediaUrl = null;
@@ -67,7 +67,7 @@ new class extends Component
                     @endforeach
                 </div>
             @else
-                <div class="fade-up rounded-2xl border border-dashed border-neutral-200 bg-white p-12 text-center">
+                <div class="rounded-2xl border border-dashed border-neutral-200 bg-white p-12 text-center">
                     <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100 text-neutral-400">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                     </div>

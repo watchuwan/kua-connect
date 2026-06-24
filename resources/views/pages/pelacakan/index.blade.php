@@ -32,14 +32,14 @@ new class extends Component
     <section class="flex-1 bg-gradient-to-b from-brand-50/20 to-white">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 py-12 lg:py-16">
 
-            <div class="fade-up mb-10">
+            <div class="mb-10">
                 <span class="text-xs font-semibold uppercase tracking-[0.15em] text-brand-600">Tracking</span>
                 <h1 class="mt-2 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">Lacak Antrean</h1>
                 <div class="mt-3 h-0.5 w-12 bg-brand-300 rounded-full"></div>
                 <p class="mt-4 text-sm text-neutral-500">Masukkan nomor antrean untuk mengetahui status terbaru</p>
             </div>
 
-            <div class="fade-up-scale">
+            <div class="">
                 <div class="flex gap-3">
                     <div class="flex-1">
                         <input
@@ -60,7 +60,7 @@ new class extends Component
             </div>
 
             @if($searched)
-                <div class="mt-8 fade-up">
+                <div class="mt-8">
                     @if($result)
                         <div class="rounded-2xl border border-neutral-200/60 bg-white p-6 sm:p-8 shadow-sm">
                             {{-- Header --}}

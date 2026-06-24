@@ -34,20 +34,20 @@ new class extends Component
     <section class="flex-1 bg-gradient-to-b from-brand-50/20 to-white">
         <div wire:poll.10s="refreshPendaftaran" class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
 
-            <a href="{{ route('tracking.index') }}" wire:navigate class="fade-up inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-brand-600 transition-colors mb-8">
+            <a href="{{ route('tracking.index') }}" wire:navigate class="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-brand-600 transition-colors mb-8">
                 <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                 Kembali
             </a>
 
             {{-- Header --}}
-            <div class="fade-up mb-8">
+            <div class="mb-8">
                 <span class="text-xs font-semibold uppercase tracking-[0.15em] text-brand-600">Detail Antrean</span>
                 <h1 class="mt-2 font-display text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl font-mono">{{ $pendaftaran->nomor_antrean }}</h1>
                 <div class="mt-3 h-0.5 w-12 bg-brand-300 rounded-full"></div>
             </div>
 
             {{-- Status Timeline --}}
-            <div class="fade-up-scale rounded-2xl border border-neutral-200/60 bg-white p-6 sm:p-8 shadow-sm mb-6">
+            <div class="rounded-2xl border border-neutral-200/60 bg-white p-6 sm:p-8 shadow-sm mb-6">
                 @php
                     $allStatuses = StatusPendaftaran::cases();
                     $currentIdx = $pendaftaran->status ? array_search($pendaftaran->status, $allStatuses) : false;
@@ -135,7 +135,7 @@ new class extends Component
             </div>
 
             {{-- Detail Card --}}
-            <div class="fade-up rounded-2xl border border-neutral-200/60 bg-white p-6 sm:p-8 shadow-sm mb-6">
+            <div class="rounded-2xl border border-neutral-200/60 bg-white p-6 sm:p-8 shadow-sm mb-6">
                 <div class="flex items-center gap-3 mb-6 pb-4 border-b border-neutral-100">
                     <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                         <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -195,18 +195,59 @@ new class extends Component
 
                 {{-- Submitted Data --}}
                 @if($pendaftaran->data && count($pendaftaran->data) > 0)
+                    @php
+                        $allMedia = $pendaftaran->getMedia('pendaftaran_files')->groupBy('name');
+                    @endphp
                     <div class="border-t border-neutral-100 pt-4 mt-4">
                         <p class="text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-3">Data yang Didaftarkan</p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
                             @foreach($pendaftaran->data as $key => $value)
                                 <div class="flex justify-between py-1.5 border-b border-neutral-50">
                                     <span class="text-sm text-neutral-500 capitalize truncate mr-2">{{ str_replace('_', ' ', $key) }}</span>
-                                    <span class="text-sm font-medium text-neutral-900 text-right max-w-[55%] truncate">
+                                    <span class="text-sm font-medium text-neutral-900 text-right max-w-[55%]">
                                         @if(is_array($value))
                                             @if(isset($value['filename']))
-                                                <span class="text-xs text-brand-600">{{ $value['filename'] }}</span>
+                                                @php
+                                                    $media = ($allMedia[$key] ?? collect())->first();
+                                                    $isImage = isset($value['mime']) && str_starts_with($value['mime'], 'image/');
+                                                @endphp
+                                                @if($media)
+                                                    <a href="{{ $media->getUrl() }}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:opacity-80 transition-opacity">
+                                                        @if($isImage)
+                                                            <img src="{{ $media->getUrl() }}" alt="{{ $value['filename'] }}" class="h-12 w-12 rounded-lg object-cover border border-neutral-200 shadow-sm">
+                                                        @else
+                                                            <x-file-icon :filename="$value['filename']" :mime="$value['mime'] ?? null" />
+                                                        @endif
+                                                        <span class="text-xs text-brand-600 truncate max-w-[120px]">{{ $value['filename'] }}</span>
+                                                    </a>
+                                                @else
+                                                    <span class="text-xs text-brand-600">{{ $value['filename'] }}</span>
+                                                @endif
                                             @else
-                                                {{ implode(', ', array_map(fn($v) => is_array($v) ? ($v['filename'] ?? json_encode($v)) : $v, $value)) }}
+                                                <div class="flex flex-wrap gap-2 justify-end">
+                                                @foreach($value as $vi => $v)
+                                                    @if(is_array($v) && isset($v['filename']))
+                                                        @php
+                                                            $multiMedia = ($allMedia[$key] ?? collect())[$vi] ?? null;
+                                                            $isImage = isset($v['mime']) && str_starts_with($v['mime'], 'image/');
+                                                        @endphp
+                                                        @if($multiMedia)
+                                                            <a href="{{ $multiMedia->getUrl() }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 hover:opacity-80 transition-opacity">
+                                                                @if($isImage)
+                                                                    <img src="{{ $multiMedia->getUrl() }}" alt="{{ $v['filename'] }}" class="h-10 w-10 rounded-lg object-cover border border-neutral-200 shadow-sm">
+                                                                @else
+                                                                    <x-file-icon :filename="$v['filename']" :mime="$v['mime'] ?? null" />
+                                                                @endif
+                                                                <span class="text-xs text-brand-600 truncate max-w-[100px]">{{ $v['filename'] }}</span>
+                                                            </a>
+                                                        @else
+                                                            <span class="text-xs text-brand-600">{{ $v['filename'] }}</span>
+                                                        @endif
+                                                    @else
+                                                        <span class="text-xs text-neutral-600">{{ is_array($v) ? json_encode($v) : $v }}</span>
+                                                    @endif
+                                                @endforeach
+                                                </div>
                                             @endif
                                         @elseif($value instanceof \Illuminate\Support\Carbon)
                                             {{ $value->translatedFormat('d M Y') }}
@@ -222,7 +263,7 @@ new class extends Component
             </div>
 
             {{-- Back --}}
-            <div class="fade-up text-center">
+            <div class="text-center">
                 <a href="{{ route('tracking.index') }}" wire:navigate class="inline-flex items-center gap-1.5 text-sm text-brand-600 hover:text-brand-700 font-medium transition-colors">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                     Lacak antrean lain
