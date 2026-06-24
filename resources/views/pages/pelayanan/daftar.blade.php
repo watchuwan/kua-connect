@@ -152,17 +152,14 @@ new class extends Component
         $this->submitting = false;
     }
 
-    public function removeUpload(string $fieldName, int $index): void
+    public function removeUploadedFile(string $fieldName, int $index): void
     {
         if (!isset($this->uploads[$fieldName][$index])) {
             return;
         }
 
-        $files = $this->uploads[$fieldName];
-        unset($files[$index]);
-
-        // Re-index dan force reassign agar Livewire mendeteksi perubahan
-        $this->uploads[$fieldName] = array_values($files);
+        // Hapus item dan re-index tanpa reassign array baru — Livewire maintain referensi temp files
+        array_splice($this->uploads[$fieldName], $index, 1);
 
         // Reset error untuk field ini agar border merah hilang
         $this->resetErrorBag("uploads.{$fieldName}");
@@ -418,7 +415,7 @@ new class extends Component
                                                             <svg class="h-4 w-4 shrink-0 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                                             <span class="truncate">{{ $this->uploads[$field->name]->getClientOriginalName() }}</span>
                                                         </span>
-                                                        <button type="button" wire:click="removeSingleUpload('{{ $field->name }}')" wire:loading.attr="disabled" wire:target="removeSingleUpload('{{ $field->name }}')" class="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600 shrink-0 transition-colors">
+                                                        <button type="button" wire:click="removeSingleUpload('{{ $field->name }}')" wire:loading.attr="disabled" wire:target="removeSingleUpload" class="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600 shrink-0 transition-colors">
                                                             <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                                         </button>
                                                     </div>
@@ -428,8 +425,7 @@ new class extends Component
                                             @if($isMultiple && $hasFiles)
                                                 <div class="mt-3 flex flex-wrap gap-3">
                                                     @foreach($this->uploads[$field->name] as $fi => $file)
-                                                        {{-- FIX: Gunakan wire:key yang lebih unik dan stabil --}}
-                                                        <div wire:key="upload-{{ $field->name }}-{{ md5($file->getClientOriginalName() . $file->getSize()) }}" class="relative group">
+                                                        <div wire:key="upload-{{ $field->name }}-{{ $fi }}-{{ $file->getFilename() }}" class="relative group">
                                                             @if($isImage)
                                                                 <a href="{{ $file->temporaryUrl() }}" target="_blank" rel="noopener noreferrer">
                                                                     <img src="{{ $file->temporaryUrl() }}" class="h-24 w-24 rounded-lg object-cover border border-neutral-200 shadow-sm" loading="lazy">
@@ -440,7 +436,7 @@ new class extends Component
                                                                     <span class="truncate">{{ $file->getClientOriginalName() }}</span>
                                                                 </div>
                                                             @endif
-                                                            <button type="button" wire:click="removeUpload('{{ $field->name }}', {{ $fi }})" wire:loading.attr="disabled" wire:target="removeUpload('{{ $field->name }}', {{ $fi }})" class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600 transition-colors">
+                                                            <button type="button" wire:click="removeUploadedFile('{{ $field->name }}', {{ $fi }})" wire:loading.attr="disabled" wire:target="removeUploadedFile" class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600 transition-colors">
                                                                 <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                                             </button>
                                                         </div>
@@ -452,7 +448,7 @@ new class extends Component
                                                         <a href="{{ $this->uploads[$field->name]->temporaryUrl() }}" target="_blank" rel="noopener noreferrer">
                                                             <img src="{{ $this->uploads[$field->name]->temporaryUrl() }}" class="h-28 w-28 rounded-lg object-cover border border-neutral-200 shadow-sm" loading="lazy">
                                                         </a>
-                                                        <button type="button" wire:click="removeSingleUpload('{{ $field->name }}')" wire:loading.attr="disabled" wire:target="removeSingleUpload('{{ $field->name }}')" class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600 transition-colors">
+                                                        <button type="button" wire:click="removeSingleUpload('{{ $field->name }}')" wire:loading.attr="disabled" wire:target="removeSingleUpload" class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600 transition-colors">
                                                             <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                                         </button>
                                                     </div>
