@@ -34,6 +34,7 @@ class AppSettingForm
                     ->label('File')
                     ->disk('public')
                     ->collection(fn ($get) => $get('key') ?: 'general')
+                    ->preserveFilenames()
                     ->image()
                     ->maxSize(4096)
                     ->visible(fn ($get) => $get('value_type') === 'image'),

@@ -24,6 +24,7 @@ class PelayananForm
                         ->label('Icon')
                         ->disk('public')
                         ->collection('icon')
+                        ->preserveFilenames()
                         ->conversion('thumb')
                         ->image()
                         ->imageResizeMode('cover')

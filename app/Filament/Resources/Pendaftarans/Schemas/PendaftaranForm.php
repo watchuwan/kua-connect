@@ -142,6 +142,7 @@ class PendaftaranForm
                     ->label($field->label)
                     ->disk('public')
                     ->collection('pendaftaran_files')
+                    ->preserveFilenames()
                     ->when($field->isMultiple(), fn (SpatieMediaLibraryFileUpload $c) => $c->multiple())
                     ->maxSize(($field->getFileUploadConfig()['max_size'] ?? 2048) * 1024)
                     ->when(

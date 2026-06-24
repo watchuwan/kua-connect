@@ -9,6 +9,8 @@ use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Collection;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class PendaftaranInfolist
 {
@@ -31,10 +33,22 @@ class PendaftaranInfolist
                     ->placeholder('-')
                     ->visible(fn (Pendaftaran $record): bool => $record->pelayanan?->slug === 'kalibrasi-arah-kiblat'),
                 SpatieMediaLibraryImageEntry::make('media')
-                    ->label('File Terupload')
+                    ->label('Gambar')
                     ->collection('pendaftaran_files')
                     ->conversion('thumb')
-                    ->columns(3),
+                    ->columns(3)
+                    ->filterMediaUsing(fn (Collection $media): Collection => $media->filter(
+                        fn (Media $m): bool => str_starts_with($m->mime_type, 'image/'),
+                    )),
+                TextEntry::make('fileNames')
+                    ->label('File')
+                    ->state(fn (Pendaftaran $record): array => $record->getMedia('pendaftaran_files')
+                        ->filter(fn (Media $m): bool => !str_starts_with($m->mime_type, 'image/'))
+                        ->map(fn (Media $m): string => $m->name . '.' . $m->extension)
+                        ->toArray())
+                    ->listWithLineBreaks()
+                    ->bulleted()
+                    ->placeholder('-'),
                 KeyValueEntry::make('data')->label('Data Pemohon')
                     ->state(fn (Pendaftaran $record): array => is_array($record->data)
                         ? collect($record->data)->map(fn ($v) => is_array($v) ? json_encode($v) : $v)->all()

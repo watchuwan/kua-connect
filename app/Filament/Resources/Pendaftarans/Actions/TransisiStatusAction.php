@@ -129,6 +129,7 @@ class TransisiStatusAction
                     ->label("Sertifikat Akurasi Arah Kiblat")
                     ->disk("public")
                     ->collection("pendaftaran_files")
+                    ->preserveFilenames()
                     ->acceptedFileTypes(["application/pdf"])
                     ->maxSize(2048),
             ];

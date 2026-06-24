@@ -140,7 +140,7 @@ new class extends Component
                 $files = $field->isMultiple() ? $this->uploads[$field->name] : [$this->uploads[$field->name]];
                 foreach ($files as $file) {
                     $pendaftaran->addMedia($file->getRealPath())
-                        ->usingName($field->name)
+                        ->usingName(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))
                         ->usingFileName($file->getClientOriginalName())
                         ->toMediaCollection('pendaftaran_files');
                 }
