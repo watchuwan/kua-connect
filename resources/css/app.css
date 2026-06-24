@@ -57,6 +57,38 @@
 
 
 
+/* ── Scroll-triggered fade-up animations ── */
+
+.fade-up,
+.fade-up-scale,
+.fade-up-child > * {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s var(--ease-out-smooth), transform 0.6s var(--ease-out-smooth);
+}
+
+.fade-up-scale {
+    transform: translateY(24px) scale(0.95);
+}
+
+.fade-up.is-visible,
+.fade-up-scale.is-visible,
+.fade-up-child.is-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-up-scale.is-visible {
+    transform: translateY(0) scale(1);
+}
+
+.fade-up-child.is-visible > *:nth-child(1) { transition-delay: 0s; }
+.fade-up-child.is-visible > *:nth-child(2) { transition-delay: 0.08s; }
+.fade-up-child.is-visible > *:nth-child(3) { transition-delay: 0.16s; }
+.fade-up-child.is-visible > *:nth-child(4) { transition-delay: 0.24s; }
+.fade-up-child.is-visible > *:nth-child(5) { transition-delay: 0.32s; }
+.fade-up-child.is-visible > *:nth-child(6) { transition-delay: 0.40s; }
+
 @keyframes pulse-count {
     0%,
     100% {

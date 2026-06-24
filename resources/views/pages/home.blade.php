@@ -133,7 +133,7 @@ new class extends Component
         <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-28">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 {{-- Left: Text --}}
-                <div class="fade-up text-center lg:text-left">
+                <div class="fade-up text-center lg:text-left" x-intersect="$el.classList.add('is-visible')">
                     <span class="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white/80 tracking-wide backdrop-blur-sm">
                         Portal Resmi KUA Kecamatan
                     </span>
@@ -162,7 +162,7 @@ new class extends Component
                 </div>
 
                 {{-- Right: Feature cards --}}
-                <div class="fade-up hidden lg:grid grid-cols-2 gap-4">
+                <div class="fade-up hidden lg:grid grid-cols-2 gap-4" x-intersect="$el.classList.add('is-visible')">
                     <div class="group rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/20">
                         <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-400/20 text-brand-200">
                             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
@@ -197,7 +197,7 @@ new class extends Component
 
         {{-- Stats inline di hero --}}
         <div class="relative mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-            <div class="fade-up grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/10 rounded-2xl border border-white/10 bg-brand-900/60 backdrop-blur-md">
+            <div class="fade-up grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/10 rounded-2xl border border-white/10 bg-brand-900/60 backdrop-blur-md" x-intersect="$el.classList.add('is-visible')">
                 <div class="fade-up-scale p-5 sm:p-7 text-center">
                     <p class="text-2xl font-bold text-white tabular-nums leading-none" x-data x-intersect="$el.textContent = '{{ $this->jumlahPelayanan }}'">{{ number_format($this->jumlahPelayanan) }}</p>
                     <p class="mt-1 text-xs text-white/60 tracking-wide">Layanan Aktif</p>
@@ -227,7 +227,7 @@ new class extends Component
 
     {{-- Layanan Populer --}}
     <section class="relative overflow-hidden bg-gradient-to-b from-white to-brand-50/30">
-        <div class="fade-up mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div class="fade-up mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24" x-intersect="$el.classList.add('is-visible')">
             <div class="mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                 <div>
                     <span class="text-xs font-semibold uppercase tracking-[0.15em] text-accent-600">Layanan</span>
@@ -242,7 +242,7 @@ new class extends Component
             </div>
 
             @if(count($this->layananPopuler) > 0)
-                <div class="fade-up-child grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="fade-up-child grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" x-intersect="$el.classList.add('is-visible')">
                     @foreach($this->layananPopuler as $i => $layanan)
                         <a href="{{ route('pelayanan.show', $layanan['slug']) }}" wire:navigate class="fade-up-scale group block rounded-2xl border border-neutral-200/60 bg-white p-5 transition-all hover:border-accent-300 hover:shadow-[0_8px_30px_-8px_rgba(167,37,131,0.10)] hover:-translate-y-0.5">
                             <div class="flex items-center gap-4">
@@ -288,7 +288,7 @@ new class extends Component
         <div class="absolute inset-0 -z-10 opacity-[0.03]" aria-hidden="true">
             <div class="h-full w-full" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"></div>
         </div>
-        <div class="fade-up mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div class="fade-up mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24" x-intersect="$el.classList.add('is-visible')">
             <div class="mb-12 text-center">
                 <span class="text-xs font-semibold uppercase tracking-[0.15em] text-brand-300">Panduan</span>
                 <h2 class="mt-2 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">Alur Layanan KUA</h2>
@@ -305,7 +305,7 @@ new class extends Component
                 ];
             @endphp
 
-            <div class="fade-up-child relative grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="fade-up-child relative grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4" x-intersect="$el.classList.add('is-visible')">
                 <div class="absolute left-[2.25rem] top-12 bottom-12 w-px bg-neutral-700 hidden lg:block" aria-hidden="true"></div>
 
                 @foreach($steps as $i => $step)
@@ -331,7 +331,7 @@ new class extends Component
         <div class="absolute inset-0 -z-10 opacity-[0.04]" aria-hidden="true">
             <div class="h-full w-full" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"></div>
         </div>
-        <div class="fade-up mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-24">
+        <div class="fade-up mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-24" x-intersect="$el.classList.add('is-visible')">
             <div class="mx-auto max-w-xl">
                 <span class="inline-flex items-center gap-1.5 rounded-full border border-brand-600/40 bg-brand-800/50 px-3 py-1 text-xs font-medium text-brand-200 tracking-wide backdrop-blur-sm">
                     Mudah & Cepat

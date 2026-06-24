@@ -83,8 +83,10 @@ class FormField extends Model
                 $rules[] = 'date';
                 break;
             case 'select':
-                if (!empty($this->options)) {
-                    $rules[] = 'in:' . implode(',', $this->options);
+                $selectOptions = is_array($this->options) ? $this->options : [];
+                $selectOptions = array_filter($selectOptions, 'is_string');
+                if (!empty($selectOptions)) {
+                    $rules[] = 'in:' . implode(',', $selectOptions);
                 }
                 break;
             case 'file':
