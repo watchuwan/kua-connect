@@ -154,13 +154,29 @@ new class extends Component
 
     public function removeUpload(string $fieldName, int $index): void
     {
-        unset($this->uploads[$fieldName][$index]);
-        $this->uploads[$fieldName] = array_values($this->uploads[$fieldName]);
+        if (!isset($this->uploads[$fieldName][$index])) {
+            return;
+        }
+
+        $files = $this->uploads[$fieldName];
+        unset($files[$index]);
+
+        // Re-index dan force reassign agar Livewire mendeteksi perubahan
+        $this->uploads[$fieldName] = array_values($files);
+
+        // Reset error untuk field ini agar border merah hilang
+        $this->resetErrorBag("uploads.{$fieldName}");
+        $this->resetErrorBag("uploads.{$fieldName}.*");
     }
 
     public function removeSingleUpload(string $fieldName): void
     {
         unset($this->uploads[$fieldName]);
+        // Force set ke null agar Livewire detect perubahan state
+        $this->uploads[$fieldName] = null;
+
+        // Reset error untuk field ini
+        $this->resetErrorBag("uploads.{$fieldName}");
     }
 
     public function resetForm(): void
@@ -366,15 +382,16 @@ new class extends Component
                                         @php
                                             $errorKey = "uploads.{$field->name}";
                                             $wireModel = "uploads.{$field->name}";
-                                            $hasError = $errors->has($errorKey);
+                                            $hasError = $errors->has($errorKey) || $errors->has("{$errorKey}.*");
                                             $isImage = $field->type === 'image';
                                         @endphp
 
                                         @php
                                             $isMultiple = $field->isMultiple();
+                                            // FIX: Gunakan !empty() dan is_array() untuk cek yang lebih akurat
                                             $hasFiles = $isMultiple
-                                                ? (isset($uploads[$field->name]) && count($uploads[$field->name]))
-                                                : (isset($uploads[$field->name]));
+                                                ? (!empty($this->uploads[$field->name]) && is_array($this->uploads[$field->name]) && count($this->uploads[$field->name]) > 0)
+                                                : (!empty($this->uploads[$field->name]));
                                         @endphp
 
                                         <div class="rounded-xl border-2 border-dashed p-5 transition-all {{ $hasError ? 'border-red-200 bg-red-50/30' : ($hasFiles ? 'border-brand-200 bg-brand-50/30' : 'border-neutral-200 bg-neutral-50/30 hover:border-brand-200 hover:bg-brand-50/20') }}">
@@ -395,13 +412,13 @@ new class extends Component
                                                     <input type="file" wire:model="{{ $wireModel }}" {{ $isMultiple ? 'multiple' : '' }} @if($isImage) accept="image/*" @endif class="hidden">
                                                 </label>
 
-                                                @if(!$isMultiple && isset($uploads[$field->name]))
+                                                @if(!$isMultiple && !empty($this->uploads[$field->name]))
                                                     <div class="flex items-center gap-2 min-w-0">
-                                                        <a href="{{ $uploads[$field->name]->temporaryUrl() }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm text-brand-600 hover:text-brand-700 truncate max-w-[200px]">
-                                                            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                                            <span class="truncate">{{ $uploads[$field->name]->getClientOriginalName() }}</span>
-                                                        </a>
-                                                        <button type="button" wire:click="removeSingleUpload('{{ $field->name }}')" class="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600 shrink-0">
+                                                        <span class="inline-flex items-center gap-1.5 text-sm text-neutral-600 truncate max-w-[200px]">
+                                                            <svg class="h-4 w-4 shrink-0 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                                            <span class="truncate">{{ $this->uploads[$field->name]->getClientOriginalName() }}</span>
+                                                        </span>
+                                                        <button type="button" wire:click="removeSingleUpload('{{ $field->name }}')" wire:loading.attr="disabled" wire:target="removeSingleUpload('{{ $field->name }}')" class="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600 shrink-0 transition-colors">
                                                             <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                                         </button>
                                                     </div>
@@ -410,31 +427,32 @@ new class extends Component
 
                                             @if($isMultiple && $hasFiles)
                                                 <div class="mt-3 flex flex-wrap gap-3">
-                                                    @foreach($uploads[$field->name] as $fi => $file)
-                                                        <div class="relative group">
+                                                    @foreach($this->uploads[$field->name] as $fi => $file)
+                                                        {{-- FIX: Gunakan wire:key yang lebih unik dan stabil --}}
+                                                        <div wire:key="upload-{{ $field->name }}-{{ md5($file->getClientOriginalName() . $file->getSize()) }}" class="relative group">
                                                             @if($isImage)
                                                                 <a href="{{ $file->temporaryUrl() }}" target="_blank" rel="noopener noreferrer">
                                                                     <img src="{{ $file->temporaryUrl() }}" class="h-24 w-24 rounded-lg object-cover border border-neutral-200 shadow-sm" loading="lazy">
                                                                 </a>
                                                             @else
-                                                                <a href="{{ $file->temporaryUrl() }}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-700 shadow-sm max-w-[240px] hover:bg-neutral-100 transition-colors">
+                                                                <div class="flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-700 shadow-sm max-w-[240px]">
                                                                     <svg class="h-4 w-4 shrink-0 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                                                     <span class="truncate">{{ $file->getClientOriginalName() }}</span>
-                                                                </a>
+                                                                </div>
                                                             @endif
-                                                            <button type="button" wire:click="removeUpload('{{ $field->name }}', {{ $fi }})" class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600">
+                                                            <button type="button" wire:click="removeUpload('{{ $field->name }}', {{ $fi }})" wire:loading.attr="disabled" wire:target="removeUpload('{{ $field->name }}', {{ $fi }})" class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600 transition-colors">
                                                                 <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                                             </button>
                                                         </div>
                                                     @endforeach
                                                 </div>
-                                            @elseif(!$isMultiple && $isImage && isset($uploads[$field->name]))
+                                            @elseif(!$isMultiple && $isImage && !empty($this->uploads[$field->name]))
                                                 <div class="mt-3">
                                                     <div class="relative inline-block">
-                                                        <a href="{{ $uploads[$field->name]->temporaryUrl() }}" target="_blank" rel="noopener noreferrer">
-                                                            <img src="{{ $uploads[$field->name]->temporaryUrl() }}" class="h-28 w-28 rounded-lg object-cover border border-neutral-200 shadow-sm" loading="lazy">
+                                                        <a href="{{ $this->uploads[$field->name]->temporaryUrl() }}" target="_blank" rel="noopener noreferrer">
+                                                            <img src="{{ $this->uploads[$field->name]->temporaryUrl() }}" class="h-28 w-28 rounded-lg object-cover border border-neutral-200 shadow-sm" loading="lazy">
                                                         </a>
-                                                        <button type="button" wire:click="removeSingleUpload('{{ $field->name }}')" class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600">
+                                                        <button type="button" wire:click="removeSingleUpload('{{ $field->name }}')" wire:loading.attr="disabled" wire:target="removeSingleUpload('{{ $field->name }}')" class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm hover:bg-red-600 transition-colors">
                                                             <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                                         </button>
                                                     </div>
