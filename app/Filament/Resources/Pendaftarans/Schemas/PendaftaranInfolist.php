@@ -35,7 +35,8 @@ class PendaftaranInfolist
                     ->collection('pendaftaran_files')
                     ->conversion('thumb')
                     ->columns(3),
-                KeyValueEntry::make('data')->label('Data Pemohon'),
+                KeyValueEntry::make('data')->label('Data Pemohon')
+                    ->state(fn (Pendaftaran $record): array => is_array($record->data) ? $record->data : []),
                 TextEntry::make('waktu_dilayani')->dateTime()->label('Waktu Dilayani')->placeholder('-'),
                 TextEntry::make('waktu_selesai')->dateTime()->label('Waktu Selesai')->placeholder('-'),
                 TextEntry::make('created_at')->dateTime()->label('Dibuat Pada'),
@@ -46,12 +47,12 @@ class PendaftaranInfolist
                     ->label('Aktivitas')
                     ->listWithLineBreaks()
                     ->bulleted()
-                    ->state(fn (Pendaftaran $record): array => $record->activityLogs()
+                    ->state(fn (Pendaftaran $record): string => $record->activityLogs()
                         ->orderByDesc('created_at')
                         ->get()
                         ->map(fn ($log) => '[' . $log->created_at->format('d/m/Y H:i') . '] '
                             . $log->description)
-                        ->toArray()),
+                        ->implode("\n")),
             ]),
         ]);
     }
