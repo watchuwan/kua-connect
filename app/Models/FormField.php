@@ -99,7 +99,7 @@ class FormField extends Model
 
                 $config = $this->getFileUploadConfig();
 
-                if (!empty($config['mimes'])) {
+                if (!empty($config['mimes']) && is_array($config['mimes'])) {
                     $rules[] = 'mimes:' . implode(',', $config['mimes']);
                 }
 
@@ -111,7 +111,7 @@ class FormField extends Model
                     $rules[] = 'min:' . $config['min_size'];
                 }
 
-                if (!empty($config['mimetypes'])) {
+                if (!empty($config['mimetypes']) && is_array($config['mimetypes'])) {
                     $rules[] = 'mimetypes:' . implode(',', $config['mimetypes']);
                 }
 
