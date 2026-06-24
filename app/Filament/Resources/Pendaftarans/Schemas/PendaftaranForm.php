@@ -146,7 +146,7 @@ class PendaftaranForm
                     ->maxSize(($field->getFileUploadConfig()['max_size'] ?? 2048) * 1024)
                     ->when(
                         !empty($field->getFileUploadConfig()['mimes']),
-                        fn (SpatieMediaLibraryFileUpload $c) => $c->acceptedFileTypes(static::resolveMimeTypes($field->getFileUploadConfig()['mimes']))
+                        fn (SpatieMediaLibraryFileUpload $c) => $c->acceptedFileTypes(static::resolveMimeTypes((array) $field->getFileUploadConfig()['mimes']))
                     )
                     ->when($field->type === 'image', fn (SpatieMediaLibraryFileUpload $c) => $c->image()),
                 default => TextInput::make($name)->label($field->label),

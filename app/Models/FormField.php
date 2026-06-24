@@ -155,7 +155,17 @@ class FormField extends Model
 
         // Jika options berisi array asosiatif (config object)
         if (array_keys($this->options) !== range(0, count($this->options) - 1)) {
-            return $this->options;
+            $config = $this->options;
+
+            if (isset($config['mimes']) && is_string($config['mimes'])) {
+                $config['mimes'] = array_map('trim', explode(',', $config['mimes']));
+            }
+
+            if (isset($config['mimetypes']) && is_string($config['mimetypes'])) {
+                $config['mimetypes'] = array_map('trim', explode(',', $config['mimetypes']));
+            }
+
+            return $config;
         }
 
         // Jika options berisi list MIME types (legacy: list of extensions)
