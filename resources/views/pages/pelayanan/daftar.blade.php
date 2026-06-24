@@ -177,14 +177,14 @@ new class extends Component
     <section class="bg-gradient-to-b from-brand-50/20 to-white min-h-screen">
         <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
 
-            <a href="{{ route('pelayanan.index') }}" wire:navigate class="fade-up inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-brand-600 transition-colors mb-8">
+            <a href="{{ route('pelayanan.index') }}" wire:navigate class="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-brand-600 transition-colors mb-8">
                 <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                 Kembali
             </a>
 
             @if($success)
                 {{-- Success Screen --}}
-                <div class="fade-up text-center">
+                <div class="text-center">
                     <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200/50">
                         <svg class="h-10 w-10 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                     </div>
@@ -232,7 +232,7 @@ new class extends Component
                 </div>
             @else
                 {{-- Header --}}
-                <div class="fade-up mb-8">
+                <div class="mb-8">
                     <span class="text-xs font-semibold uppercase tracking-[0.15em] text-brand-600">Pendaftaran</span>
                     <h1 class="mt-2 font-display text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">{{ $pelayanan->nama_pelayanan }}</h1>
                     <div class="mt-3 h-0.5 w-12 bg-brand-300 rounded-full"></div>
@@ -240,7 +240,7 @@ new class extends Component
                 </div>
 
                 {{-- Form --}}
-                <div class="fade-up-scale space-y-6">
+                <div class="space-y-6">
                     <form wire:submit="daftar">
                         @php
                             $nonFileFields = $this->formFields->reject(fn($f) => $f->isFileUpload());
