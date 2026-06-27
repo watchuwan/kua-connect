@@ -153,24 +153,24 @@ new class extends Component
                     </div>
                     <div class="flex justify-between py-3 border-b border-neutral-100">
                         <span class="text-sm text-neutral-500">Waktu Daftar</span>
-                        <span class="text-sm font-medium text-neutral-900">{{ $pendaftaran->created_at->translatedFormat('d M Y, H:i') }}</span>
+                        <span class="text-sm font-medium text-neutral-900">{{ $pendaftaran->created_at->setTimezone('Asia/Jayapura')->translatedFormat('d M Y, H:i') }}</span>
                     </div>
                     @if($pendaftaran->waktu_dilayani)
                     <div class="flex justify-between py-3 border-b border-neutral-100">
                         <span class="text-sm text-neutral-500">Mulai Dilayani</span>
-                        <span class="text-sm font-medium text-neutral-900">{{ $pendaftaran->waktu_dilayani->translatedFormat('d M Y, H:i') }}</span>
+                        <span class="text-sm font-medium text-neutral-900">{{ $pendaftaran->waktu_dilayani->setTimezone('Asia/Jayapura')->translatedFormat('d M Y, H:i') }}</span>
                     </div>
                     @endif
                     @if($pendaftaran->waktu_selesai)
                     <div class="flex justify-between py-3 border-b border-neutral-100">
                         <span class="text-sm text-neutral-500">Selesai</span>
-                        <span class="text-sm font-medium text-neutral-900">{{ $pendaftaran->waktu_selesai->translatedFormat('d M Y, H:i') }}</span>
+                        <span class="text-sm font-medium text-neutral-900">{{ $pendaftaran->waktu_selesai->setTimezone('Asia/Jayapura')->translatedFormat('d M Y, H:i') }}</span>
                     </div>
                     @endif
                     @if($pendaftaran->jadwal_kedatangan)
                     <div class="flex justify-between py-3 border-b border-neutral-100">
                         <span class="text-sm text-neutral-500">Jadwal Kedatangan</span>
-                        <span class="text-sm font-medium text-neutral-900">{{ $pendaftaran->jadwal_kedatangan->translatedFormat('d M Y, H:i') }}</span>
+                        <span class="text-sm font-medium text-neutral-900">{{ $pendaftaran->jadwal_kedatangan->setTimezone('Asia/Jayapura')->translatedFormat('d M Y, H:i') }}</span>
                     </div>
                     @endif
                     @if($pendaftaran->no_surat)
@@ -250,7 +250,7 @@ new class extends Component
                                                 </div>
                                             @endif
                                         @elseif($value instanceof \Illuminate\Support\Carbon)
-                                            {{ $value->translatedFormat('d M Y') }}
+                                            {{ $value->setTimezone('Asia/Jayapura')->translatedFormat('d M Y') }}
                                         @else
                                             {{ $value }}
                                         @endif

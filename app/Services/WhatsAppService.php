@@ -19,7 +19,7 @@ class WhatsAppService
         }
 
         $jadwal = $pendaftaran->jadwal_kedatangan
-            ? $pendaftaran->jadwal_kedatangan->locale('id')->isoFormat('D MMMM Y [pukul] HH:mm')
+            ? $pendaftaran->jadwal_kedatangan->setTimezone('Asia/Jayapura')->locale('id')->isoFormat('D MMMM Y [pukul] HH:mm')
             : 'akan diinformasikan lebih lanjut';
 
         $message = static::buildMessage($pendaftaran, $jadwal);

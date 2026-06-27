@@ -84,24 +84,24 @@ new class extends Component
                                 </div>
                                 <div class="flex justify-between py-3 border-b border-neutral-100">
                                     <span class="text-sm text-neutral-500">Waktu Daftar</span>
-                                    <span class="text-sm font-medium text-neutral-900">{{ $result->created_at->translatedFormat('d M Y, H:i') }}</span>
+                                    <span class="text-sm font-medium text-neutral-900">{{ $result->created_at->setTimezone('Asia/Jayapura')->translatedFormat('d M Y, H:i') }}</span>
                                 </div>
                                 @if($result->waktu_dilayani)
                                 <div class="flex justify-between py-3 border-b border-neutral-100">
                                     <span class="text-sm text-neutral-500">Dilayani</span>
-                                    <span class="text-sm font-medium text-neutral-900">{{ $result->waktu_dilayani->translatedFormat('d M Y, H:i') }}</span>
+                                    <span class="text-sm font-medium text-neutral-900">{{ $result->waktu_dilayani->setTimezone('Asia/Jayapura')->translatedFormat('d M Y, H:i') }}</span>
                                 </div>
                                 @endif
                                 @if($result->waktu_selesai)
                                 <div class="flex justify-between py-3 border-b border-neutral-100">
                                     <span class="text-sm text-neutral-500">Selesai</span>
-                                    <span class="text-sm font-medium text-neutral-900">{{ $result->waktu_selesai->translatedFormat('d M Y, H:i') }}</span>
+                                    <span class="text-sm font-medium text-neutral-900">{{ $result->waktu_selesai->setTimezone('Asia/Jayapura')->translatedFormat('d M Y, H:i') }}</span>
                                 </div>
                                 @endif
                                 @if($result->jadwal_kedatangan)
                                 <div class="flex justify-between py-3 border-b border-neutral-100">
                                     <span class="text-sm text-neutral-500">Jadwal Kedatangan</span>
-                                    <span class="text-sm font-medium text-neutral-900">{{ $result->jadwal_kedatangan->translatedFormat('d M Y, H:i') }}</span>
+                                    <span class="text-sm font-medium text-neutral-900">{{ $result->jadwal_kedatangan->setTimezone('Asia/Jayapura')->translatedFormat('d M Y, H:i') }}</span>
                                 </div>
                                 @endif
                                 @if($result->no_surat)
